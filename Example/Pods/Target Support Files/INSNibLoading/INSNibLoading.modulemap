@@ -1,0 +1,6 @@
+framework module INSNibLoading {
+  umbrella header "INSNibLoading-umbrella.h"
+
+  export *
+  module * { export * }
+}

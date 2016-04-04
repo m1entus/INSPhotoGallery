@@ -1,0 +1,5 @@
+platform :ios, "8.0"
+pod 'INSNibLoading'
+pod 'SDWebImage'
+
+use_frameworks!
