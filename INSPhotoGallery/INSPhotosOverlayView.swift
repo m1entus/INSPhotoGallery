@@ -3,8 +3,19 @@
 //  INSPhotoViewer
 //
 //  Created by Michal Zaborowski on 28.02.2016.
-//  Copyright © 2016 Michal Zaborowski. All rights reserved.
+//  Copyright © 2016 Inspace Labs Sp z o. o. Spółka Komandytowa. All rights reserved.
 //
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this library except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 import UIKit
 
@@ -24,6 +35,8 @@ extension INSPhotosOverlayViewable where Self: UIView {
 
 public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     public private(set) var navigationBar: UINavigationBar!
+    public private(set) var captionLabel: UILabel!
+    
     public private(set) var navigationItem: UINavigationItem!
     public weak var photosViewController: UIViewController?
     private var currentPhoto: INSPhotoViewable?
@@ -47,6 +60,7 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupNavigationBar()
+        setupCaptionLabel()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -93,14 +107,20 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     
     public func populateWithPhoto<T: INSPhotoViewable>(photo: T) {
         self.currentPhoto = photo
-        self.navigationItem.title = photo.attributedTitle?.string
+
+        if let photosViewController = photosViewController as? INSPhotosViewController<T> {
+            if let index = photosViewController.dataSource.indexOfPhoto(photo) {
+                navigationItem.title = "\(index+1) of \(photosViewController.dataSource.numberOfPhotos)"
+            }
+            captionLabel.attributedText = photo.attributedTitle
+        }
     }
     
-    @objc func closeButtonTapped(sender: UIBarButtonItem) {
+    @objc private func closeButtonTapped(sender: UIBarButtonItem) {
         photosViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @objc func actionButtonTapped(sender: UIBarButtonItem) {
+    @objc private func actionButtonTapped(sender: UIBarButtonItem) {
         if let currentPhoto = currentPhoto {
             currentPhoto.loadImageWithCompletionHandler({ [weak self] (image, error) -> () in
                 if let image = (image ?? currentPhoto.thumbnailImage) {
@@ -111,7 +131,7 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         }
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         navigationBar.backgroundColor = UIColor.clearColor()
@@ -129,7 +149,26 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         let horizontalPositionConstraint = NSLayoutConstraint(item: navigationBar, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
         self.addConstraints([topConstraint,widthConstraint,horizontalPositionConstraint])
         
-        leftBarButtonItem = UIBarButtonItem(title: "CLOSE".uppercaseString, style: .Plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
+        if let bundlePath = NSBundle(forClass: self.dynamicType).pathForResource("INSPhotoGallery", ofType: "bundle") {
+            let bundle = NSBundle(path: bundlePath)
+            leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "INSPhotoGalleryClose", inBundle: bundle, compatibleWithTraitCollection: nil), landscapeImagePhone: UIImage(named: "INSPhotoGalleryCloseLandscape", inBundle: bundle, compatibleWithTraitCollection: nil), style: .Plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
+        } else {
+            leftBarButtonItem = UIBarButtonItem(title: "CLOSE".uppercaseString, style: .Plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
+        }
+        
         rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
+    }
+    
+    private func setupCaptionLabel() {
+        captionLabel = UILabel()
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
+        captionLabel.backgroundColor = UIColor.clearColor()
+        captionLabel.numberOfLines = 0
+        addSubview(captionLabel)
+        
+        let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: captionLabel, attribute: .Bottom, multiplier: 1.0, constant: 8.0)
+        let leadingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1.0, constant: 8.0)
+        let trailingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: 8.0)
+        self.addConstraints([bottomConstraint,leadingConstraint,trailingConstraint])
     }
 }

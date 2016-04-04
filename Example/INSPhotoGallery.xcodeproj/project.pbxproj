@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64F5811D1CB2D707008785E5 /* INSPhotoGallery.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64F5811C1CB2D707008785E5 /* INSPhotoGallery.bundle */; };
 		CC2C6F6CFCB580C59030916E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDCCEF4783A040A397D6717 /* Pods.framework */; };
 		D2EF35F51CB288F300033131 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF35F41CB288F300033131 /* AppDelegate.swift */; };
 		D2EF35F71CB288F300033131 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF35F61CB288F300033131 /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		52DA31F96E56812A6C09D2DA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		64F5811C1CB2D707008785E5 /* INSPhotoGallery.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = INSPhotoGallery.bundle; sourceTree = "<group>"; };
 		7E0A6F9305E2B70C9951142C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BFDCCEF4783A040A397D6717 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EF35F11CB288F300033131 /* INSPhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INSPhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 		D2EF36061CB2896B00033131 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				64F5811C1CB2D707008785E5 /* INSPhotoGallery.bundle */,
 				D2EF36071CB2896B00033131 /* INSPhoto.swift */,
 				D2EF36081CB2896B00033131 /* INSPhotosDataSource.swift */,
 				D2EF36091CB2896B00033131 /* INSPhotosInteractionAnimator.swift */,
@@ -211,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64F5811D1CB2D707008785E5 /* INSPhotoGallery.bundle in Resources */,
 				D2EF35FF1CB288F300033131 /* LaunchScreen.storyboard in Resources */,
 				D2EF35FC1CB288F300033131 /* Assets.xcassets in Resources */,
 				D2EF36201CB299CF00033131 /* CustomOverlayView.xib in Resources */,
