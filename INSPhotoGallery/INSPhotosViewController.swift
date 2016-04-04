@@ -20,12 +20,14 @@
 import UIKit
 import MessageUI
 
-public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIViewControllerTransitioningDelegate {
-    public typealias INSPhotosViewControllerReferenceViewHandler = (photo: T) -> (UIView?)
-    public typealias INSPhotosViewControllerNavigateToPhotoHandler = (photo: T) -> ()
-    public typealias INSPhotosViewControllerDismissHandler = (viewController: INSPhotosViewController) -> ()
-    public typealias INSPhotosViewControllerLongPressHandler = (photo: T, gestureRecognizer: UILongPressGestureRecognizer) -> (Bool)
-    
+public typealias INSPhotosViewControllerReferenceViewHandler = (photo: INSPhotoViewable) -> (UIView?)
+public typealias INSPhotosViewControllerNavigateToPhotoHandler = (photo: INSPhotoViewable) -> ()
+public typealias INSPhotosViewControllerDismissHandler = (viewController: INSPhotosViewController) -> ()
+public typealias INSPhotosViewControllerLongPressHandler = (photo: INSPhotoViewable, gestureRecognizer: UILongPressGestureRecognizer) -> (Bool)
+
+
+public class INSPhotosViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIViewControllerTransitioningDelegate {
+
     public var referenceViewForPhotoWhenDismissingHandler: INSPhotosViewControllerReferenceViewHandler?
     public var navigateToPhotoHandler: INSPhotosViewControllerNavigateToPhotoHandler?
     public var willDismissHandler: INSPhotosViewControllerDismissHandler?
@@ -44,17 +46,17 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
         }
     }
 
-    public var currentPhotoViewController: INSPhotoViewController<T>? {
-        return pageViewController.viewControllers?.first as? INSPhotoViewController<T>
+    public var currentPhotoViewController: INSPhotoViewController? {
+        return pageViewController.viewControllers?.first as? INSPhotoViewController
     }
     
-    public var currentPhoto: T? {
+    public var currentPhoto: INSPhotoViewable? {
         return currentPhotoViewController?.photo
     }
     
     // MARK: - Private
     private(set) var pageViewController: UIPageViewController!
-    private(set) var dataSource: INSPhotosDataSource<T>
+    private(set) var dataSource: INSPhotosDataSource
     
     let interactiveAnimator: INSPhotosInteractionAnimator = INSPhotosInteractionAnimator()
     let transitionAnimator: INSPhotosTransitionAnimator = INSPhotosTransitionAnimator()
@@ -78,26 +80,26 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        dataSource = INSPhotosDataSource<T>(photos: [])
+        dataSource = INSPhotosDataSource(photos: [])
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(nil)
     }
     
     public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-        dataSource = INSPhotosDataSource<T>(photos: [])
+        dataSource = INSPhotosDataSource(photos: [])
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(nil)
     }
     
-    public init(photos: [T], initialPhoto: T? = nil, referenceView: UIView? = nil) {
-        dataSource = INSPhotosDataSource<T>(photos: photos)
+    public init(photos: [INSPhotoViewable], initialPhoto: INSPhotoViewable? = nil, referenceView: UIView? = nil) {
+        dataSource = INSPhotosDataSource(photos: photos)
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(initialPhoto)
         transitionAnimator.startingView = referenceView
         transitionAnimator.endingView = currentPhotoViewController?.scalingImageView.imageView
     }
     
-    private func initialSetupWithInitialPhoto(initialPhoto: T? = nil) {
+    private func initialSetupWithInitialPhoto(initialPhoto: INSPhotoViewable? = nil) {
         overlayView.photosViewController = self
         setupPageViewControllerWithInitialPhoto(initialPhoto)
 
@@ -155,7 +157,7 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
         overlayView.setHidden(true, animated: false)
     }
     
-    private func setupPageViewControllerWithInitialPhoto(initialPhoto: T? = nil) {
+    private func setupPageViewControllerWithInitialPhoto(initialPhoto: INSPhotoViewable? = nil) {
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 16.0])
         pageViewController.view.backgroundColor = UIColor.clearColor()
         pageViewController.delegate = self
@@ -163,7 +165,7 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
         
         if let photo = initialPhoto where dataSource.containsPhoto(photo) {
             changeToPhoto(photo, animated: false)
-        } else if let photo = dataSource.photos.firstObject as? T {
+        } else if let photo = dataSource.photos.first {
             changeToPhoto(photo, animated: false)
         }
     }
@@ -176,7 +178,7 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
     
     // MARK: - Public
     
-    public func changeToPhoto(photo: T, animated: Bool) {
+    public func changeToPhoto(photo: INSPhotoViewable, animated: Bool) {
         if !dataSource.containsPhoto(photo) {
             return
         }
@@ -239,8 +241,8 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
     
     // MARK: - UIPageViewControllerDataSource / UIPageViewControllerDelegate
 
-    private func initializePhotoViewControllerForPhoto(photo: T) -> INSPhotoViewController<T> {
-        let photoViewController = INSPhotoViewController<T>(photo: photo)
+    private func initializePhotoViewControllerForPhoto(photo: INSPhotoViewable) -> INSPhotoViewController {
+        let photoViewController = INSPhotoViewController(photo: photo)
         singleTapGestureRecognizer.requireGestureRecognizerToFail(photoViewController.doubleTapGestureRecognizer)
         photoViewController.longPressGestureHandler = { [weak self] gesture in
             guard let weakSelf = self else {
@@ -268,7 +270,7 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
     }
     
     @objc public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let photoViewController = viewController as? INSPhotoViewController<T>,
+        guard let photoViewController = viewController as? INSPhotoViewController,
            let photoIndex = dataSource.indexOfPhoto(photoViewController.photo),
            let newPhoto = dataSource[photoIndex-1] else {
             return nil
@@ -277,7 +279,7 @@ public class INSPhotosViewController<T: INSPhotoViewable>: UIViewController, UIP
     }
     
     @objc public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let photoViewController = viewController as? INSPhotoViewController<T>,
+        guard let photoViewController = viewController as? INSPhotoViewController,
             let photoIndex = dataSource.indexOfPhoto(photoViewController.photo),
             let newPhoto = dataSource[photoIndex+1] else {
                 return nil

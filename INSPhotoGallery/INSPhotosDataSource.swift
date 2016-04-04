@@ -19,29 +19,29 @@
 
 import Foundation
 
-struct INSPhotosDataSource<T: INSPhotoViewable> {
-    var photos: NSArray = []
+struct INSPhotosDataSource{
+    var photos: [INSPhotoViewable] = []
     
     var numberOfPhotos: Int {
         return photos.count
     }
     
-    func photoAtIndex(index: Int) -> T? {
+    func photoAtIndex(index: Int) -> INSPhotoViewable? {
         if (index < photos.count && index >= 0) {
-            return photos[index] as? T;
+            return photos[index];
         }
         return nil
     }
     
-    func indexOfPhoto(photo: T) -> Int? {
-        return photos.indexOfObject(photo)
+    func indexOfPhoto(photo: INSPhotoViewable) -> Int? {
+        return photos.indexOf({ $0 === photo})
     }
 
-    func containsPhoto(photo: T) -> Bool {
+    func containsPhoto(photo: INSPhotoViewable) -> Bool {
         return indexOfPhoto(photo) != nil
     }
     
-    subscript(index: Int) -> T? {
+    subscript(index: Int) -> INSPhotoViewable? {
         get {
             return photoAtIndex(index)
         }

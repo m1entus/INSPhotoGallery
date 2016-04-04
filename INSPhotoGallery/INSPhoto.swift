@@ -19,8 +19,11 @@
 
 import Foundation
 import UIKit
-
-public protocol INSPhotoViewable: class {
+/*
+ * This is marked as @objc because of Swift bug http://stackoverflow.com/questions/30100787/fatal-error-array-cannot-be-bridged-from-objective-c-why-are-you-even-trying when passing for example [INSPhoto] array
+ * to INSPhotosViewController
+ */
+@objc public protocol INSPhotoViewable: class {
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
     
@@ -31,13 +34,13 @@ public protocol INSPhotoViewable: class {
 }
 
 public class INSPhoto: INSPhotoViewable, Equatable {
-    public var image: UIImage?
-    public var thumbnailImage: UIImage?
+    @objc public var image: UIImage?
+    @objc public var thumbnailImage: UIImage?
     
     var imageURL: NSURL?
     var thumbnailImageURL: NSURL?
     
-    public var attributedTitle: NSAttributedString?
+    @objc public var attributedTitle: NSAttributedString?
     
     init(image: UIImage?, thumbnailImage: UIImage?) {
         self.image = image
@@ -54,14 +57,14 @@ public class INSPhoto: INSPhotoViewable, Equatable {
         self.thumbnailImage = thumbnailImage
     }
     
-    public func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
+    @objc public func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
         if let image = image {
             completion(image: image, error: nil)
             return
         }
         loadImageWithURL(imageURL, completion: completion)
     }
-    public func loadThumbnailImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
+    @objc public func loadThumbnailImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
         if let thumbnailImage = thumbnailImage {
             completion(image: thumbnailImage, error: nil)
             return

@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var useCustomOverlay = false
     
-    lazy var photos: [INSPhoto] = {
+    lazy var photos: [INSPhotoViewable] = {
         return [
             INSPhoto(imageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/13-3f15416ddd11d38619289335fafd498d.jpg"), thumbnailImage: UIImage(named: "thumbnailImage")!),
             INSPhoto(imageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/13-3f15416ddd11d38619289335fafd498d.jpg"), thumbnailImage: UIImage(named: "thumbnailImage")!),
@@ -31,7 +31,9 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         
         for photo in photos {
-            photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            if let photo = photo as? INSPhoto {
+                photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            }
         }
     }
 }
@@ -50,13 +52,13 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ExampleCollectionViewCell
         let currentPhoto = photos[indexPath.row]
-        let galleryPreview = INSPhotosViewController<INSPhoto>(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
+        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
         if useCustomOverlay {
             galleryPreview.overlayView = CustomOverlayView(frame: CGRect.zero)
         }
         
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            if let index = self?.photos.indexOf(photo) {
+            if let index = self?.photos.indexOf({$0 === photo}) {
                 let indexPath = NSIndexPath(forItem: index, inSection: 0)
                 return collectionView.cellForItemAtIndexPath(indexPath) as? ExampleCollectionViewCell
             }

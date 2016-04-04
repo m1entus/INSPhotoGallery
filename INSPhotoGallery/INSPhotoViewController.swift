@@ -19,8 +19,8 @@
 
 import UIKit
 
-public class INSPhotoViewController<T: INSPhotoViewable>: UIViewController, UIScrollViewDelegate {
-    var photo: T
+public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
+    var photo: INSPhotoViewable
     
     var longPressGestureHandler: ((UILongPressGestureRecognizer) -> ())?
     
@@ -45,9 +45,13 @@ public class INSPhotoViewController<T: INSPhotoViewable>: UIViewController, UISc
         return activityIndicator
     }()
     
-    public init(photo: T) {
+    public init(photo: INSPhotoViewable) {
         self.photo = photo
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {

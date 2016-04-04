@@ -10,7 +10,7 @@ import UIKit
 import INSNibLoading
 
 class CustomOverlayView: INSNibLoadedView {
-    weak var photosViewController: UIViewController?
+    weak var photosViewController: INSPhotosViewController?
     
     // Pass the touches down to other views
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
@@ -27,7 +27,7 @@ class CustomOverlayView: INSNibLoadedView {
 
 
 extension CustomOverlayView: INSPhotosOverlayViewable {
-    func populateWithPhoto<T: INSPhotoViewable>(photo: T) {
+    func populateWithPhoto(photo: INSPhotoViewable) {
         
     }
     func setHidden(hidden: Bool, animated: Bool) {

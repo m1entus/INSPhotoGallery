@@ -19,10 +19,10 @@
 
 import UIKit
 
-public protocol INSPhotosOverlayViewable: class {
-    weak var photosViewController: UIViewController? { get set }
+public protocol INSPhotosOverlayViewable:class {
+    weak var photosViewController: INSPhotosViewController? { get set }
     
-    func populateWithPhoto<T: INSPhotoViewable>(photo: T)
+    func populateWithPhoto(photo: INSPhotoViewable)
     func setHidden(hidden: Bool, animated: Bool)
     func view() -> UIView
 }
@@ -38,7 +38,7 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     public private(set) var captionLabel: UILabel!
     
     public private(set) var navigationItem: UINavigationItem!
-    public weak var photosViewController: UIViewController?
+    public weak var photosViewController: INSPhotosViewController?
     private var currentPhoto: INSPhotoViewable?
     
     var leftBarButtonItem: UIBarButtonItem? {
@@ -105,10 +105,10 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         }
     }
     
-    public func populateWithPhoto<T: INSPhotoViewable>(photo: T) {
+    public func populateWithPhoto(photo: INSPhotoViewable) {
         self.currentPhoto = photo
 
-        if let photosViewController = photosViewController as? INSPhotosViewController<T> {
+        if let photosViewController = photosViewController {
             if let index = photosViewController.dataSource.indexOfPhoto(photo) {
                 navigationItem.title = "\(index+1) of \(photosViewController.dataSource.numberOfPhotos)"
             }

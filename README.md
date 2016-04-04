@@ -14,7 +14,7 @@
 # Simple Usage
 
 ```swift
-lazy var photos: [INSPhoto] = {
+lazy var photos: [INSPhotoViewable] = {
     return [
         INSPhoto(imageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/13-3f15416ddd11d38619289335fafd498d.jpg"), thumbnailImage: UIImage(named: "thumbnailImage")!),
         INSPhoto(imageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/13-3f15416ddd11d38619289335fafd498d.jpg"), thumbnailImage: UIImage(named: "thumbnailImage")!),
@@ -30,7 +30,7 @@ func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath i
     let galleryPreview = INSPhotosViewController<INSPhoto>(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
 
     galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-        if let index = self?.photos.indexOf(photo) {
+        if let index = self?.photos.indexOf({$0 === photo}) {
             let indexPath = NSIndexPath(forItem: index, inSection: 0)
             return collectionView.cellForItemAtIndexPath(indexPath) as? ExampleCollectionViewCell
         }
@@ -45,7 +45,7 @@ func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath i
 You are able to create your custom photo model which can be use instead default `INSPhoto`. Default implementation don't cache images. If you would like to use some caching mechanism or use some library for downloading images for example `HanekeSwift` use must implement `INSPhotoViewable` protocol.
 
 ```swift
-public protocol INSPhotoViewable: NSObjectProtocol {
+@objc public protocol INSPhotoViewable: class {
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
 

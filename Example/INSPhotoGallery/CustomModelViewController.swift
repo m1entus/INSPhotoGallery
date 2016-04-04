@@ -44,10 +44,10 @@ extension CustomModelViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ExampleCollectionViewCell
         let currentPhoto = photos[indexPath.row]
-        let galleryPreview = INSPhotosViewController<CustomPhotoModel>(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
+        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
 
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            if let index = self?.photos.indexOf(photo) {
+            if let index = self?.photos.indexOf({$0 === photo}) {
                 let indexPath = NSIndexPath(forItem: index, inSection: 0)
                 let cell = collectionView.cellForItemAtIndexPath(indexPath) as? ExampleCollectionViewCell
                 return cell
