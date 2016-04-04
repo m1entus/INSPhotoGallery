@@ -42,7 +42,7 @@ func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath i
 
 # Custom Photo Model
 
-You are able to create your custom photo model which can be use instead default `INSPhoto`. Default implementation don't cache images. If you would like to use some caching mechanism or use some library for downloading images for example `SDWebImage` use must implement `INSPhotoViewable` protocol.
+You are able to create your custom photo model which can be use instead default `INSPhoto`. Default implementation don't cache images. If you would like to use some caching mechanism or use some library for downloading images for example `HanekeSwift` use must implement `INSPhotoViewable` protocol.
 
 ```swift
 public protocol INSPhotoViewable: NSObjectProtocol {
@@ -65,14 +65,16 @@ class CustomPhotoModel: NSObject, INSPhotoViewable {
   var thumbnailImageURL: NSURL?
 
   func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
-      if let url = imageURL {
-          SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { image, error, cahcheType, finished, url in
-              completion(image: image, error: error)
-          })
-      } else {
-          completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
-      }
-  }
+        if let url = imageURL {
+            Shared.imageCache.fetch(URL: url).onSuccess({ image in
+                completion(image: image, error: nil)
+            }).onFailure({ error in
+                completion(image: nil, error: error)
+            })
+        } else {
+            completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
+        }
+    }
 }
 ```
 

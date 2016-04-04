@@ -1,5 +1,5 @@
 platform :ios, "8.0"
 pod 'INSNibLoading'
-pod 'SDWebImage'
+pod 'HanekeSwift'
 
 use_frameworks!

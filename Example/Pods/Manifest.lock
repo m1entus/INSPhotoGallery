@@ -1,15 +1,13 @@
 PODS:
+  - HanekeSwift (0.10.1)
   - INSNibLoading (1.0.1)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
+  - HanekeSwift
   - INSNibLoading
-  - SDWebImage
 
 SPEC CHECKSUMS:
+  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   INSNibLoading: 1b8d0ee31b94c124bffe2609e697e0a43117a78f
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
 
 COCOAPODS: 0.39.0

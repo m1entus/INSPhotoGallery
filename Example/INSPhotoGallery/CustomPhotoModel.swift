@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Haneke
 
 class CustomPhotoModel: NSObject, INSPhotoViewable {
     var image: UIImage?
@@ -37,8 +37,10 @@ class CustomPhotoModel: NSObject, INSPhotoViewable {
     
     func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
         if let url = imageURL {
-            SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { image, error, cahcheType, finished, url in
-                completion(image: image, error: error)
+            Shared.imageCache.fetch(URL: url).onSuccess({ image in
+                completion(image: image, error: nil)
+            }).onFailure({ error in
+                completion(image: nil, error: error)
             })
         } else {
             completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
@@ -50,11 +52,10 @@ class CustomPhotoModel: NSObject, INSPhotoViewable {
             return
         }
         if let url = thumbnailImageURL {
-            SDWebImageManager.sharedManager().downloadImageWithURL(url, options: [], progress: nil, completed: { image, error, cahcheType, finished, url in
-                if let image = image {
-                    self.thumbnailImage = image
-                }
-                completion(image: image, error: error)
+            Shared.imageCache.fetch(URL: url).onSuccess({ image in
+                completion(image: image, error: nil)
+            }).onFailure({ error in
+                completion(image: nil, error: error)
             })
         } else {
             completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
