@@ -20,7 +20,7 @@
 import Foundation
 import UIKit
 
-public protocol INSPhotoViewable: NSObjectProtocol {
+public protocol INSPhotoViewable: class {
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
     
@@ -30,7 +30,7 @@ public protocol INSPhotoViewable: NSObjectProtocol {
     var attributedTitle: NSAttributedString? { get }
 }
 
-public class INSPhoto: NSObject, INSPhotoViewable {
+public class INSPhoto: INSPhotoViewable, Equatable {
     public var image: UIImage?
     public var thumbnailImage: UIImage?
     
