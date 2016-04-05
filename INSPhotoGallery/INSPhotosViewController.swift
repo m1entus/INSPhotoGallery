@@ -27,13 +27,35 @@ public typealias INSPhotosViewControllerLongPressHandler = (photo: INSPhotoViewa
 
 
 public class INSPhotosViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIViewControllerTransitioningDelegate {
-
+    
+    /* 
+     * Returns the view from which to animate for object conforming to INSPhotoViewable 
+     */
     public var referenceViewForPhotoWhenDismissingHandler: INSPhotosViewControllerReferenceViewHandler?
+    
+    /*
+     * Called when a new photo is displayed through a swipe gesture.
+     */
     public var navigateToPhotoHandler: INSPhotosViewControllerNavigateToPhotoHandler?
+    
+    /*
+     * Called before INSPhotosViewController will start a user-initiated dismissal.
+     */
     public var willDismissHandler: INSPhotosViewControllerDismissHandler?
+    
+    /*
+     * Called after the INSPhotosViewController has been dismissed by the user.
+     */
     public var didDismissHandler: INSPhotosViewControllerDismissHandler?
+    
+    /*
+     * Called when a photo is long pressed.
+     */
     public var longPressGestureHandler: INSPhotosViewControllerLongPressHandler?
     
+    /*
+     * The overlay view displayed over photos, can be changed but must implement INSPhotosOverlayViewable
+     */
     public var overlayView: INSPhotosOverlayViewable = INSPhotosOverlayView(frame: CGRect.zero) {
         willSet {
             overlayView.view().removeFromSuperview()
@@ -46,10 +68,16 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
         }
     }
 
+    /*
+     * INSPhotoViewController is currently displayed by page view controller
+     */
     public var currentPhotoViewController: INSPhotoViewController? {
         return pageViewController.viewControllers?.first as? INSPhotoViewController
     }
     
+    /*
+     * Photo object that is currently displayed by INSPhotoViewController
+     */
     public var currentPhoto: INSPhotoViewable? {
         return currentPhotoViewController?.photo
     }
@@ -91,6 +119,15 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
         initialSetupWithInitialPhoto(nil)
     }
     
+    /**
+     The designated initializer that stores the array of objects implementing INSPhotoViewable
+     
+     - parameter photos:        An array of objects implementing INSPhotoViewable.
+     - parameter initialPhoto:  The photo to display initially. Must be contained within the `photos` array.
+     - parameter referenceView: The view from which to animate.
+     
+     - returns: A fully initialized object.
+     */
     public init(photos: [INSPhotoViewable], initialPhoto: INSPhotoViewable? = nil, referenceView: UIView? = nil) {
         dataSource = INSPhotosDataSource(photos: photos)
         super.init(nibName: nil, bundle: nil)
@@ -178,6 +215,12 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
     
     // MARK: - Public
     
+    /**
+     Displays the specified photo. Can be called before the view controller is displayed. Calling with a photo not contained within the data source has no effect.
+     
+     - parameter photo:    The photo to make the currently displayed photo.
+     - parameter animated: Whether to animate the transition to the new photo.
+     */
     public func changeToPhoto(photo: INSPhotoViewable, animated: Bool) {
         if !dataSource.containsPhoto(photo) {
             return
