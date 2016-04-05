@@ -18,7 +18,6 @@
 //  limitations under the License.
 
 import UIKit
-import MessageUI
 
 public typealias INSPhotosViewControllerReferenceViewHandler = (photo: INSPhotoViewable) -> (UIView?)
 public typealias INSPhotosViewControllerNavigateToPhotoHandler = (photo: INSPhotoViewable) -> ()
