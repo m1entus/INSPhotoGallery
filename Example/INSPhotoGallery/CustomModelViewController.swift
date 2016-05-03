@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import INSPhotoGallery
 
 class CustomModelViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!

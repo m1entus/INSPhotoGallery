@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import INSPhotoGallery
 
 class ViewController: UIViewController {
 

@@ -1,0 +1,6 @@
+framework module INSPhotoGallery {
+  umbrella header "INSPhotoGallery-umbrella.h"
+
+  export *
+  module * { export * }
+}

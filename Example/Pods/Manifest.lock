@@ -1,13 +1,20 @@
 PODS:
   - HanekeSwift (0.10.1)
   - INSNibLoading (1.0.1)
+  - INSPhotoGallery (1.0.0)
 
 DEPENDENCIES:
   - HanekeSwift
   - INSNibLoading
+  - INSPhotoGallery (from `../INSPhotoGallery.podspec`)
+
+EXTERNAL SOURCES:
+  INSPhotoGallery:
+    :podspec: ../INSPhotoGallery.podspec
 
 SPEC CHECKSUMS:
   HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   INSNibLoading: 1b8d0ee31b94c124bffe2609e697e0a43117a78f
+  INSPhotoGallery: b24054d5721bf50b7ce6be682245fc44e0250ad4
 
 COCOAPODS: 0.39.0
