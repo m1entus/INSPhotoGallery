@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'INSPhotoGallery'
-  s.version  = '1.0.1'
+  s.version  = '1.0.2'
   s.license  = 'Apache License, Version 2.0'
   s.summary  = 'INSPhotoGallery is a modern looking photo gallery written in Swift for iOS.'
   s.homepage = 'https://github.com/inspace-io/INSPhotoGallery'

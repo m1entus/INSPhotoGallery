@@ -1,6 +1,5 @@
 platform :ios, "8.0"
 pod 'INSNibLoading'
 pod 'HanekeSwift'
-pod 'INSPhotoGallery', :podspec => '../INSPhotoGallery.podspec'
 
 use_frameworks!
