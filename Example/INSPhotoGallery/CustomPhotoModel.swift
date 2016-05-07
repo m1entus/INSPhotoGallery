@@ -8,7 +8,7 @@
 
 import UIKit
 import Haneke
-import INSPhotoGallery
+import INSPhotoGalleryFramework
 
 class CustomPhotoModel: NSObject, INSPhotoViewable {
     var image: UIImage?

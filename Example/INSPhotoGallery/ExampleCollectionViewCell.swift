@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import INSPhotoGallery
+import INSPhotoGalleryFramework
 
 class ExampleCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
