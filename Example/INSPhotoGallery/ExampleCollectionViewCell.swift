@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import INSPhotoGallery
+import INSPhotoGalleryFramework
 
 protocol SelectCollectionViewCellDataSource :NSObjectProtocol {
     func getSelectIndex() -> String

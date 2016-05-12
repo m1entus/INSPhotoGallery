@@ -7,6 +7,10 @@
 //
 
 import UIKit
+<<<<<<< HEAD
+=======
+import INSPhotoGalleryFramework
+>>>>>>> upstream/master
 
 class ViewController: UIViewController {
 

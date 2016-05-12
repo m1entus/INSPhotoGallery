@@ -72,7 +72,7 @@ public class INSPhoto: INSPhotoViewable, Equatable {
         loadImageWithURL(thumbnailImageURL, completion: completion)
     }
     
-    private func loadImageWithURL(url: NSURL?, completion: (image: UIImage?, error: NSError?) -> ()) {
+    public func loadImageWithURL(url: NSURL?, completion: (image: UIImage?, error: NSError?) -> ()) {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         
         if let imageURL = url {

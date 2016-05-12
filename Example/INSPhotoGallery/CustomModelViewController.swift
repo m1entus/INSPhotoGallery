@@ -7,9 +7,13 @@
 //
 
 import UIKit
+<<<<<<< HEAD
 import INSPhotoGallery
 import Photos
 
+=======
+import INSPhotoGalleryFramework
+>>>>>>> upstream/master
 
 class CustomModelViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
