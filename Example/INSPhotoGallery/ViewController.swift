@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import INSPhotoGallery
 
 class ViewController: UIViewController {
 
@@ -66,5 +65,10 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
             return nil
         }
         presentViewController(galleryPreview, animated: true, completion: nil)
+        
     }
 }
+
+
+
+

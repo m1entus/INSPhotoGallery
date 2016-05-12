@@ -143,6 +143,8 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
         transitioningDelegate = self
         modalPresentationCapturesStatusBarAppearance = true
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: UIButton.init(type: UIButtonType.InfoLight))
+        
         setupOverlayViewInitialItems()
     }
     
@@ -178,7 +180,7 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
         
         // This fix issue that navigationBar animate to up
         // when presentingViewController is UINavigationViewController
-        statusBarHidden = true
+        statusBarHidden = false
         UIView.animateWithDuration(0.25) { () -> Void in
             self.setNeedsStatusBarAppearanceUpdate()
         }

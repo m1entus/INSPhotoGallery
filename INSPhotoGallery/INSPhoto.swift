@@ -42,17 +42,17 @@ public class INSPhoto: INSPhotoViewable, Equatable {
     
     @objc public var attributedTitle: NSAttributedString?
     
-    init(image: UIImage?, thumbnailImage: UIImage?) {
+    public init(image: UIImage?, thumbnailImage: UIImage?) {
         self.image = image
         self.thumbnailImage = thumbnailImage
     }
     
-    init(imageURL: NSURL?, thumbnailImageURL: NSURL?) {
+    public init(imageURL: NSURL?, thumbnailImageURL: NSURL?) {
         self.imageURL = imageURL
         self.thumbnailImageURL = thumbnailImageURL
     }
     
-    init (imageURL: NSURL?, thumbnailImage: UIImage) {
+    public init (imageURL: NSURL?, thumbnailImage: UIImage) {
         self.imageURL = imageURL
         self.thumbnailImage = thumbnailImage
     }

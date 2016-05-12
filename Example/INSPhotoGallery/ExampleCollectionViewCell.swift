@@ -9,8 +9,21 @@
 import UIKit
 import INSPhotoGallery
 
+protocol SelectCollectionViewCellDataSource :NSObjectProtocol {
+    func getSelectIndex() -> String
+}
+
 class ExampleCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var selectButton: UIButton!
+    weak var dataSource: SelectCollectionViewCellDataSource?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectButton.layer.cornerRadius = 15
+        selectButton.layer.masksToBounds = true
+    }
     
     func populateWithPhoto(photo: INSPhotoViewable) {
         photo.loadThumbnailImageWithCompletionHandler { [weak photo] (image, error) in
@@ -20,6 +33,16 @@ class ExampleCollectionViewCell: UICollectionViewCell {
                 }
                 self.imageView.image = image
             }
+        }
+    }
+    @IBAction func selectButtonEvent(button: UIButton) {
+        button.selected = !button.selected
+        if button.selected {
+            button.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
+            button.setTitle("", forState: UIControlState.Selected)
+        }else{
+            button.backgroundColor = UIColor.greenColor()
+            button.setTitle(dataSource?.getSelectIndex(), forState: UIControlState.Normal)
         }
     }
 }
