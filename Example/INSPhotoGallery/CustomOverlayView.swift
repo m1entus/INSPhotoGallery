@@ -13,7 +13,17 @@ import INSPhotoGalleryFramework
 class CustomOverlayView: INSNibLoadedView {
     weak var photosViewController: INSPhotosViewController?
     
+    @IBOutlet weak var selectButton: UIButton!
+    @IBOutlet weak var numLabel: UILabel!
+    @IBOutlet weak var finishButton: UIButton!
     // Pass the touches down to other views
+    
+    override func awakeFromNib() {
+        numLabel.layer.cornerRadius = 10
+        numLabel.layer.masksToBounds = true
+        
+    }
+    
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         if let hitView = super.hitTest(point, withEvent: event) where hitView != self {
             return hitView

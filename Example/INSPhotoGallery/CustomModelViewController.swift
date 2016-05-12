@@ -7,7 +7,13 @@
 //
 
 import UIKit
+<<<<<<< HEAD
+import INSPhotoGallery
+import Photos
+
+=======
 import INSPhotoGalleryFramework
+>>>>>>> upstream/master
 
 class CustomModelViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,6 +28,15 @@ class CustomModelViewController: UIViewController {
             CustomPhotoModel(imageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/6-d793b947f57cc3df688eeb1d36b04ddb.jpg"), thumbnailImageURL: NSURL(string: "http://inspace.io/assets/portfolio/thumb/6-d793b947f57cc3df688eeb1d36b04ddb.jpg"))
         ]
     }()
+    private var assets: [PHAsset]! {
+        willSet {
+            PHCachingImageManager().stopCachingImagesForAllAssets()
+        }
+        
+        didSet {
+            PHCachingImageManager().startCachingImagesForAssets(self.assets, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +50,19 @@ extension CustomModelViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ExampleCollectionViewCell", forIndexPath: indexPath) as! ExampleCollectionViewCell
         cell.populateWithPhoto(photos[indexPath.row])
-        
+        cell.dataSource = self
         return cell
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return assets.count
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ExampleCollectionViewCell
         let currentPhoto = photos[indexPath.row]
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
-
+        galleryPreview.overlayView = CustomOverlayView(frame: CGRect.zero)
+        
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
             if let index = self?.photos.indexOf({$0 === photo}) {
                 let indexPath = NSIndexPath(forItem: index, inSection: 0)
@@ -56,5 +72,11 @@ extension CustomModelViewController: UICollectionViewDataSource, UICollectionVie
             return nil
         }
         presentViewController(galleryPreview, animated: true, completion: nil)
+    }
+}
+
+extension CustomModelViewController: SelectCollectionViewCellDataSource {
+    func getSelectIndex() -> String {
+        return "1"
     }
 }

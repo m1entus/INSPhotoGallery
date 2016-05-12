@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GoV-8c-rkH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GoV-8c-rkH">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="4" minY="4" maxX="4" maxY="4"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="V0A-Y5-1Q8" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="V0A-Y5-1Q8" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery_Example" customModuleProvider="target">
                                         <rect key="frame" x="4" y="68" width="180" height="145"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -73,7 +73,7 @@
         <!--Custom Model View Controller-->
         <scene sceneID="9Oz-GX-iY3">
             <objects>
-                <viewController id="eiD-B0-955" customClass="CustomModelViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eiD-B0-955" customClass="CustomModelViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AMv-pg-1ML"/>
                         <viewControllerLayoutGuide type="bottom" id="cwd-cN-hd8"/>
@@ -92,7 +92,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="k09-PL-X83" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="k09-PL-X83" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery_Example" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="64" width="156" height="124"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -102,17 +102,35 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m0N-mG-AEm">
                                                     <rect key="frame" x="0.0" y="0.0" width="156" height="124"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1jp-Mp-4Ea">
+                                                    <rect key="frame" x="118" y="8" width="30" height="30"/>
+                                                    <color key="backgroundColor" red="0.1647058824" green="0.74901960779999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Fsy-Rx-wLC"/>
+                                                        <constraint firstAttribute="width" constant="30" id="xNO-fr-joo"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="1">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="selectButtonEvent:" destination="k09-PL-X83" eventType="touchUpInside" id="jdF-yi-pmw"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="m0N-mG-AEm" secondAttribute="trailing" id="1Ia-Le-gmr"/>
                                             <constraint firstAttribute="bottom" secondItem="m0N-mG-AEm" secondAttribute="bottom" id="9lG-V4-koZ"/>
+                                            <constraint firstItem="1jp-Mp-4Ea" firstAttribute="trailing" secondItem="k09-PL-X83" secondAttribute="trailingMargin" id="HYE-59-DMj"/>
                                             <constraint firstItem="m0N-mG-AEm" firstAttribute="leading" secondItem="k09-PL-X83" secondAttribute="leading" id="R5N-Fg-WKx"/>
                                             <constraint firstItem="m0N-mG-AEm" firstAttribute="top" secondItem="k09-PL-X83" secondAttribute="top" id="Ue6-rw-4YR"/>
+                                            <constraint firstItem="1jp-Mp-4Ea" firstAttribute="top" secondItem="k09-PL-X83" secondAttribute="topMargin" id="bAS-Ae-uue"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="m0N-mG-AEm" id="itc-8M-W85"/>
+                                            <outlet property="selectButton" destination="1jp-Mp-4Ea" id="zmF-dy-6Is"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -138,7 +156,7 @@
         <!--Table View Controller-->
         <scene sceneID="giR-gs-ahn">
             <objects>
-                <tableViewController id="ANG-gi-1O7" customClass="TableViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ANG-gi-1O7" customClass="TableViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CC0-PN-WSm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
