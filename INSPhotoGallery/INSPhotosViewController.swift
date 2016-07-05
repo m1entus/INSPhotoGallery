@@ -225,7 +225,11 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
             return
         }
         let photoViewController = initializePhotoViewControllerForPhoto(photo)
-        let direction = self.dataSource.indexOfPhoto(currentPhoto!) > self.dataSource.indexOfPhoto(photo) ? UIPageViewControllerNavigationDirection.Reverse : UIPageViewControllerNavigationDirection.Forward
+        var direction = UIPageViewControllerNavigationDirection.Forward
+            
+        if let currentPhoto = currentPhoto {
+            direction = self.dataSource.indexOfPhoto(currentPhoto) > self.dataSource.indexOfPhoto(photo) ? UIPageViewControllerNavigationDirection.Reverse : UIPageViewControllerNavigationDirection.Forward
+        }
         pageViewController.setViewControllers([photoViewController], direction: direction, animated: animated, completion: nil)
         updateCurrentPhotosInformation()
     }
