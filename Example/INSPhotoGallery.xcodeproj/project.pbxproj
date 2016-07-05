@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CD2D5C91D2BD1C4008F49B5 /* CTGalleryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2D5C61D2BD1C4008F49B5 /* CTGalleryOverlayView.swift */; };
+		2CD2D5CA1D2BD1C4008F49B5 /* CTGalleryOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD2D5C71D2BD1C4008F49B5 /* CTGalleryOverlayView.xib */; };
+		2CD2D5CB1D2BD1C4008F49B5 /* CTGalleryPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2D5C81D2BD1C4008F49B5 /* CTGalleryPhoto.swift */; };
+		2CD2D5CD1D2BD2A4008F49B5 /* CTVideoPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2D5CC1D2BD2A4008F49B5 /* CTVideoPhotoViewController.swift */; };
 		642427291CDE10750037E8DA /* INSPhotoGalleryFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 642427281CDE10750037E8DA /* INSPhotoGalleryFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6424272D1CDE10750037E8DA /* INSPhotoGalleryFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642427261CDE10740037E8DA /* INSPhotoGalleryFramework.framework */; };
 		6424272E1CDE10750037E8DA /* INSPhotoGalleryFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 642427261CDE10740037E8DA /* INSPhotoGalleryFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -59,6 +63,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CD2D5C61D2BD1C4008F49B5 /* CTGalleryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTGalleryOverlayView.swift; sourceTree = "<group>"; };
+		2CD2D5C71D2BD1C4008F49B5 /* CTGalleryOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTGalleryOverlayView.xib; sourceTree = "<group>"; };
+		2CD2D5C81D2BD1C4008F49B5 /* CTGalleryPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTGalleryPhoto.swift; sourceTree = "<group>"; };
+		2CD2D5CC1D2BD2A4008F49B5 /* CTVideoPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTVideoPhotoViewController.swift; sourceTree = "<group>"; };
 		52DA31F96E56812A6C09D2DA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		642427261CDE10740037E8DA /* INSPhotoGalleryFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INSPhotoGalleryFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		642427281CDE10750037E8DA /* INSPhotoGalleryFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INSPhotoGalleryFramework.h; sourceTree = "<group>"; };
@@ -178,6 +186,10 @@
 				D2EF361F1CB299CF00033131 /* CustomOverlayView.xib */,
 				D2EF36211CB29C6600033131 /* CustomPhotoModel.swift */,
 				D2EF36231CB2A67800033131 /* CustomModelViewController.swift */,
+				2CD2D5C61D2BD1C4008F49B5 /* CTGalleryOverlayView.swift */,
+				2CD2D5C71D2BD1C4008F49B5 /* CTGalleryOverlayView.xib */,
+				2CD2D5C81D2BD1C4008F49B5 /* CTGalleryPhoto.swift */,
+				2CD2D5CC1D2BD2A4008F49B5 /* CTVideoPhotoViewController.swift */,
 			);
 			path = INSPhotoGallery;
 			sourceTree = "<group>";
@@ -299,6 +311,7 @@
 			files = (
 				D2EF35FF1CB288F300033131 /* LaunchScreen.storyboard in Resources */,
 				D2EF35FC1CB288F300033131 /* Assets.xcassets in Resources */,
+				2CD2D5CA1D2BD1C4008F49B5 /* CTGalleryOverlayView.xib in Resources */,
 				D2EF36201CB299CF00033131 /* CustomOverlayView.xib in Resources */,
 				D2EF35FA1CB288F300033131 /* Main.storyboard in Resources */,
 			);
@@ -376,7 +389,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2EF35F71CB288F300033131 /* ViewController.swift in Sources */,
+				2CD2D5C91D2BD1C4008F49B5 /* CTGalleryOverlayView.swift in Sources */,
 				D2EF36221CB29C6600033131 /* CustomPhotoModel.swift in Sources */,
+				2CD2D5CB1D2BD1C4008F49B5 /* CTGalleryPhoto.swift in Sources */,
+				2CD2D5CD1D2BD2A4008F49B5 /* CTVideoPhotoViewController.swift in Sources */,
 				D2EF361E1CB2998200033131 /* CustomOverlayView.swift in Sources */,
 				D2EF361C1CB2984C00033131 /* TableViewController.swift in Sources */,
 				D2EF36241CB2A67800033131 /* CustomModelViewController.swift in Sources */,
