@@ -81,6 +81,10 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
         return currentPhotoViewController?.photo
     }
     
+    public var currentDataSource: INSPhotosDataSource {
+        return dataSource
+    }
+    
     // MARK: - Private
     private(set) var pageViewController: UIPageViewController!
     private(set) var dataSource: INSPhotosDataSource

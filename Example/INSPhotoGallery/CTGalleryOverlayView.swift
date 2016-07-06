@@ -12,7 +12,6 @@ import INSPhotoGalleryFramework
 
 class CTGalleryOverlayView: INSNibLoadedView {
     weak var photosViewController: INSPhotosViewController?
-    var photos : [INSPhotoViewable]!
     
     @IBOutlet weak var leftArrow: UIButton!
     @IBOutlet weak var rightArrow: UIButton!
@@ -26,15 +25,19 @@ class CTGalleryOverlayView: INSNibLoadedView {
         return nil
     }
     @IBAction func nextBtnClick(sender: AnyObject) {
-        let index = photos.indexOf {$0 === photosViewController!.currentPhoto}!
-        if index < photos.count-1{
-            photosViewController?.changeToPhoto(photos[index+1], animated: true)
+        if let photosViewController = self.photosViewController{
+            let index = photosViewController.currentDataSource.indexOfPhoto(photosViewController.currentPhoto!)
+            if index < photosViewController.currentDataSource.numberOfPhotos-1{
+                photosViewController.changeToPhoto(photosViewController.currentDataSource.photoAtIndex(index!+1)!, animated: true)
+            }
         }
     }
     @IBAction func prevBtnClick(sender: AnyObject) {
-        let index = photos.indexOf {$0 === photosViewController!.currentPhoto}!
-        if index > 0{
-            photosViewController?.changeToPhoto(photos[index-1], animated: true)
+        if let photosViewController = self.photosViewController{
+            let index = photosViewController.currentDataSource.indexOfPhoto(photosViewController.currentPhoto!)
+            if index > 0{
+                photosViewController.changeToPhoto(photosViewController.currentDataSource.photoAtIndex(index!-1)!, animated: true)
+            }
         }
     }
     @IBAction func closeBtnClick(sender: AnyObject) {
@@ -70,14 +73,14 @@ extension CTGalleryOverlayView: INSPhotosOverlayViewable {
     }
     func setupView(){
         if let photosViewController = photosViewController {
-            let index = photos.indexOf {$0 === photosViewController.currentPhoto}!+1
-            lblTitle.text = "\(index) / \(photos.count)"
+            let index = photosViewController.currentDataSource.indexOfPhoto(photosViewController.currentPhoto!)!+1
+            lblTitle.text = "\(index) / \(photosViewController.currentDataSource.numberOfPhotos)"
             leftArrow.hidden = false
             rightArrow.hidden = false
             if index == 1{
                 leftArrow.hidden = true
             }
-            else if index==photos.count{
+            else if index==photosViewController.currentDataSource.numberOfPhotos{
                 rightArrow.hidden = true
             }
         }

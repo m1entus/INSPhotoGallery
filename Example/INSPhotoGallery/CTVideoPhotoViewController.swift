@@ -47,7 +47,6 @@ extension CTVideoPhotoViewController: UICollectionViewDataSource, UICollectionVi
         let currentPhoto = photos[indexPath.row]
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
         let overylayView = CTGalleryOverlayView(frame: CGRect.zero)
-        overylayView.photos = photos
         galleryPreview.overlayView = overylayView
         
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
