@@ -93,9 +93,15 @@ public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    public override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         self.stopVideo()
+        if let player = videoPlayer{
+            if let observer = videoPlayerObserver{
+                player.removeTimeObserver(observer)
+                videoPlayerObserver = nil
+            }
+        }
     }
     
     public func initVideo(videoURL: NSURL){

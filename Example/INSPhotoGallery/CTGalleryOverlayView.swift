@@ -164,7 +164,5 @@ extension CTGalleryOverlayView: INSPhotosOverlayViewable {
         }
         let totalSeconds = CMTimeGetSeconds((player.currentItem?.duration)!)
         self.videoProgress.progress = Float(currentSeconds / totalSeconds)
-        
-        print("Updated Frame")
     }
 }
