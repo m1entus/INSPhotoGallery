@@ -112,7 +112,6 @@ public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         scalingImageView.layer.addSublayer(videoPlayerLayer!)
         videoPlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
         videoPlayer!.muted = false
-        videoPlayer!.play()
     }
     
     public func stopVideo(){
