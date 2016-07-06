@@ -22,7 +22,6 @@ class CTGalleryPhoto: NSObject, INSPhotoViewable {
     var imageURL: NSURL?
     var thumbnailImageURL: NSURL?
     
-    var video: NSURL?
     var videoURL: NSURL?
     
     var itemType = CTGalleryPhotoType.Photo
@@ -44,6 +43,16 @@ class CTGalleryPhoto: NSObject, INSPhotoViewable {
     init (imageURL: NSURL?, thumbnailImage: UIImage) {
         self.imageURL = imageURL
         self.thumbnailImage = thumbnailImage
+    }
+    
+    init (videoURL: NSURL?, thumbnailImage: UIImage) {
+        self.videoURL = videoURL
+        self.thumbnailImage = thumbnailImage
+    }
+    
+    init(videoURL: NSURL?, thumbnailImageURL: NSURL?) {
+        self.videoURL = videoURL
+        self.thumbnailImageURL = thumbnailImageURL
     }
     
     func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {

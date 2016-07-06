@@ -18,9 +18,13 @@
 //  limitations under the License.
 
 import UIKit
+import AVFoundation
 
 public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     var photo: INSPhotoViewable
+    public var videoPlayer: AVPlayer?
+    public var videoPlayerLayer: AVPlayerLayer?
+    public var videoPlayerObserver: AnyObject?
     
     var longPressGestureHandler: ((UILongPressGestureRecognizer) -> ())?
     
@@ -84,12 +88,44 @@ public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         } else {
             loadThumbnailImage()
         }
-
+        if let videoURL = photo.videoURL{
+            self.initVideo(videoURL)
+        }
     }
     
+    public override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.stopVideo()
+    }
+    
+    public func initVideo(videoURL: NSURL){
+        let playerItem = AVPlayerItem(URL: videoURL)
+        videoPlayer = AVPlayer(playerItem: playerItem)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer)
+        videoPlayerLayer!.frame = scalingImageView.bounds
+        scalingImageView.layer.addSublayer(videoPlayerLayer!)
+        videoPlayerLayer!.videoGravity = AVLayerVideoGravityResizeAspect
+        videoPlayer!.muted = false
+        videoPlayer!.play()
+    }
+    
+    public func stopVideo(){
+        if let player = videoPlayer{
+            player.pause()
+        }
+    }
+    
+    public func playVideo(){
+        if let player = videoPlayer{
+            player.play()
+        }
+    }
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         scalingImageView.frame = view.bounds
+        if let playerLayer = videoPlayerLayer{
+            playerLayer.frame = scalingImageView.bounds
+        }
     }
     
     private func loadThumbnailImage() {
