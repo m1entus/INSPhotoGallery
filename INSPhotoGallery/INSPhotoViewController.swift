@@ -93,8 +93,8 @@ public class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    public override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
+    public override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         self.stopVideo()
         if let player = videoPlayer{
             if let observer = videoPlayerObserver{
