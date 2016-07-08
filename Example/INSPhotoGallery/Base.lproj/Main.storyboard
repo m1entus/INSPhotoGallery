@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GoV-8c-rkH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GoV-8c-rkH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="4" minY="4" maxX="4" maxY="4"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="V0A-Y5-1Q8" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="V0A-Y5-1Q8" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery_Example" customModuleProvider="target">
                                         <rect key="frame" x="4" y="68" width="180" height="145"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -73,7 +73,7 @@
         <!--Custom Model View Controller-->
         <scene sceneID="9Oz-GX-iY3">
             <objects>
-                <viewController id="eiD-B0-955" customClass="CustomModelViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eiD-B0-955" customClass="CustomModelViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AMv-pg-1ML"/>
                         <viewControllerLayoutGuide type="bottom" id="cwd-cN-hd8"/>
@@ -92,7 +92,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="k09-PL-X83" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="k09-PL-X83" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery_Example" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="64" width="156" height="124"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -138,7 +138,7 @@
         <!--Table View Controller-->
         <scene sceneID="giR-gs-ahn">
             <objects>
-                <tableViewController id="ANG-gi-1O7" customClass="TableViewController" customModule="INSPhotoGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="ANG-gi-1O7" customClass="TableViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CC0-PN-WSm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,6 +206,26 @@
                                             <segue destination="eiD-B0-955" kind="show" identifier="customPhotoModel" id="QHs-eI-oYS"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="KiN-WH-MkU" style="IBUITableViewCellStyleDefault" id="ge6-5t-wor">
+                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ge6-5t-wor" id="NJf-1L-l9V">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Video Photo Model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KiN-WH-MkU">
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="SxK-ld-oHI" kind="show" id="63G-ai-YEO"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -237,6 +257,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wf9-Tr-IJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="85" y="840"/>
+        </scene>
+        <!--Video Photo View Controller-->
+        <scene sceneID="Y5Q-6B-ckX">
+            <objects>
+                <viewController id="SxK-ld-oHI" customClass="CTVideoPhotoViewController" customModule="INSPhotoGallery_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FVX-wK-0RY"/>
+                        <viewControllerLayoutGuide type="bottom" id="iOQ-yp-0EW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zaD-3e-u6P">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8MX-9m-dBp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nc8-RR-OvE">
+                                    <size key="itemSize" width="156" height="124"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ExampleCollectionViewCell" id="ZlF-Jn-mWV" customClass="ExampleCollectionViewCell" customModule="INSPhotoGallery_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="156" height="124"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="124"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jn5-5P-NPQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="156" height="124"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="jn5-5P-NPQ" firstAttribute="leading" secondItem="ZlF-Jn-mWV" secondAttribute="leading" id="AzN-Pr-llX"/>
+                                            <constraint firstItem="jn5-5P-NPQ" firstAttribute="top" secondItem="ZlF-Jn-mWV" secondAttribute="top" id="FVH-Ox-hGi"/>
+                                            <constraint firstAttribute="bottom" secondItem="jn5-5P-NPQ" secondAttribute="bottom" id="gHl-Dq-pEt"/>
+                                            <constraint firstAttribute="trailing" secondItem="jn5-5P-NPQ" secondAttribute="trailing" id="yiI-za-wQk"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="jn5-5P-NPQ" id="Yre-Yg-MFP"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iOQ-yp-0EW" firstAttribute="top" secondItem="8MX-9m-dBp" secondAttribute="bottom" id="PMe-82-kOe"/>
+                            <constraint firstItem="8MX-9m-dBp" firstAttribute="top" secondItem="zaD-3e-u6P" secondAttribute="top" id="Sfp-sx-YOT"/>
+                            <constraint firstItem="8MX-9m-dBp" firstAttribute="leading" secondItem="zaD-3e-u6P" secondAttribute="leading" id="Z2V-HX-l9m"/>
+                            <constraint firstAttribute="trailing" secondItem="8MX-9m-dBp" secondAttribute="trailing" id="aFa-Tq-Tgr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="YrR-cp-6HD"/>
+                    <connections>
+                        <outlet property="collectionView" destination="8MX-9m-dBp" id="X4E-B1-3Ad"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E55-Cb-DY7" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="1571"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

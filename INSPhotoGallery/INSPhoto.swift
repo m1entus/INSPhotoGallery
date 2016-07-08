@@ -26,6 +26,7 @@ import UIKit
 @objc public protocol INSPhotoViewable: class {
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
+    var videoURL: NSURL? { get }
     
     func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ())
     func loadThumbnailImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ())
@@ -36,6 +37,7 @@ import UIKit
 public class INSPhoto: INSPhotoViewable, Equatable {
     @objc public var image: UIImage?
     @objc public var thumbnailImage: UIImage?
+    @objc public var videoURL: NSURL?
     
     var imageURL: NSURL?
     var thumbnailImageURL: NSURL?
@@ -55,6 +57,16 @@ public class INSPhoto: INSPhotoViewable, Equatable {
     public init (imageURL: NSURL?, thumbnailImage: UIImage) {
         self.imageURL = imageURL
         self.thumbnailImage = thumbnailImage
+    }
+    
+    public init (videoURL: NSURL?, thumbnailImage: UIImage) {
+        self.videoURL = videoURL
+        self.thumbnailImage = thumbnailImage
+    }
+    
+    public init(videoURL: NSURL?, thumbnailImageURL: NSURL?) {
+        self.videoURL = videoURL
+        self.thumbnailImageURL = thumbnailImageURL
     }
     
     @objc public func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
