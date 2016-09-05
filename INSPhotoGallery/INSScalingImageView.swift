@@ -104,7 +104,7 @@ class INSScalingImageView: UIScrollView {
             let minimumScale = min(scaleWidth, scaleHeight)
             
             self.minimumZoomScale = minimumScale
-            self.maximumZoomScale = max(minimumScale, scaleHeight)
+            self.maximumZoomScale = max(minimumScale, self.maximumZoomScale)
             
             self.zoomScale = minimumZoomScale
 

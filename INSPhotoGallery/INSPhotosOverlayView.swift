@@ -110,7 +110,7 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
 
         if let photosViewController = photosViewController {
             if let index = photosViewController.dataSource.indexOfPhoto(photo) {
-                navigationItem.title = "\(index+1) of \(photosViewController.dataSource.numberOfPhotos)"
+                navigationItem.title = NSLocalizedString("\(index+1) of \(photosViewController.dataSource.numberOfPhotos)", comment: "1 of 10")
             }
             captionLabel.attributedText = photo.attributedTitle
         }
@@ -125,6 +125,7 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
             currentPhoto.loadImageWithCompletionHandler({ [weak self] (image, error) -> () in
                 if let image = (image ?? currentPhoto.thumbnailImage) {
                     let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                    activityController.popoverPresentationController?.barButtonItem = sender
                     self?.photosViewController?.presentViewController(activityController, animated: true, completion: nil)
                 }
             });
