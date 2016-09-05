@@ -22,8 +22,8 @@ import UIKit
 public protocol INSPhotosOverlayViewable:class {
     weak var photosViewController: INSPhotosViewController? { get set }
     
-    func populateWithPhoto(photo: INSPhotoViewable)
-    func setHidden(hidden: Bool, animated: Bool)
+    func populateWithPhoto(_ photo: INSPhotoViewable)
+    func setHidden(_ hidden: Bool, animated: Bool)
     func view() -> UIView
 }
 
@@ -33,12 +33,12 @@ extension INSPhotosOverlayViewable where Self: UIView {
     }
 }
 
-public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
-    public private(set) var navigationBar: UINavigationBar!
-    public private(set) var captionLabel: UILabel!
+open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
+    open private(set) var navigationBar: UINavigationBar!
+    open private(set) var captionLabel: UILabel!
     
-    public private(set) var navigationItem: UINavigationItem!
-    public weak var photosViewController: INSPhotosViewController?
+    open private(set) var navigationItem: UINavigationItem!
+    open weak var photosViewController: INSPhotosViewController?
     private var currentPhoto: INSPhotoViewable?
     
     var leftBarButtonItem: UIBarButtonItem? {
@@ -68,14 +68,14 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     }
     
     // Pass the touches down to other views
-    public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        if let hitView = super.hitTest(point, withEvent: event) where hitView != self {
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let hitView = super.hitTest(point, with: event) , hitView != self {
             return hitView
         }
         return nil
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         // The navigation bar has a different intrinsic content size upon rotation, so we must update to that new size.
         // Do it without animation to more closely match the behavior in `UINavigationController`
         UIView.performWithoutAnimation { () -> Void in
@@ -85,27 +85,27 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         super.layoutSubviews()
     }
     
-    public func setHidden(hidden: Bool, animated: Bool) {
-        if self.hidden == hidden {
+    open func setHidden(_ hidden: Bool, animated: Bool) {
+        if self.isHidden == hidden {
             return
         }
         
         if animated {
-            self.hidden = false
+            self.isHidden = false
             self.alpha = hidden ? 1.0 : 0.0
             
-            UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .AllowAnimatedContent, .AllowUserInteraction], animations: { () -> Void in
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowAnimatedContent, .allowUserInteraction], animations: { () -> Void in
                 self.alpha = hidden ? 0.0 : 1.0
                 }, completion: { result in
                     self.alpha = 1.0
-                    self.hidden = hidden
+                    self.isHidden = hidden
             })
         } else {
-            self.hidden = hidden
+            self.isHidden = hidden
         }
     }
     
-    public func populateWithPhoto(photo: INSPhotoViewable) {
+    open func populateWithPhoto(_ photo: INSPhotoViewable) {
         self.currentPhoto = photo
 
         if let photosViewController = photosViewController {
@@ -116,17 +116,17 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         }
     }
     
-    @objc private func closeButtonTapped(sender: UIBarButtonItem) {
-        photosViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @objc private func closeButtonTapped(_ sender: UIBarButtonItem) {
+        photosViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func actionButtonTapped(sender: UIBarButtonItem) {
+    @objc private func actionButtonTapped(_ sender: UIBarButtonItem) {
         if let currentPhoto = currentPhoto {
             currentPhoto.loadImageWithCompletionHandler({ [weak self] (image, error) -> () in
                 if let image = (image ?? currentPhoto.thumbnailImage) {
                     let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                     activityController.popoverPresentationController?.barButtonItem = sender
-                    self?.photosViewController?.presentViewController(activityController, animated: true, completion: nil)
+                    self?.photosViewController?.present(activityController, animated: true, completion: nil)
                 }
             });
         }
@@ -135,41 +135,41 @@ public class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     private func setupNavigationBar() {
         navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.backgroundColor = UIColor.clearColor()
+        navigationBar.backgroundColor = UIColor.clear
         navigationBar.barTintColor = nil
-        navigationBar.translucent = true
+        navigationBar.isTranslucent = true
         navigationBar.shadowImage = UIImage()
-        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
         
         navigationItem = UINavigationItem(title: "")
         navigationBar.items = [navigationItem]
         addSubview(navigationBar)
         
-        let topConstraint = NSLayoutConstraint(item: navigationBar, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 0.0)
-        let widthConstraint = NSLayoutConstraint(item: navigationBar, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1.0, constant: 0.0)
-        let horizontalPositionConstraint = NSLayoutConstraint(item: navigationBar, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: navigationBar, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
+        let widthConstraint = NSLayoutConstraint(item: navigationBar, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1.0, constant: 0.0)
+        let horizontalPositionConstraint = NSLayoutConstraint(item: navigationBar, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         self.addConstraints([topConstraint,widthConstraint,horizontalPositionConstraint])
         
-        if let bundlePath = NSBundle(forClass: self.dynamicType).pathForResource("INSPhotoGallery", ofType: "bundle") {
-            let bundle = NSBundle(path: bundlePath)
-            leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "INSPhotoGalleryClose", inBundle: bundle, compatibleWithTraitCollection: nil), landscapeImagePhone: UIImage(named: "INSPhotoGalleryCloseLandscape", inBundle: bundle, compatibleWithTraitCollection: nil), style: .Plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
+        if let bundlePath = Bundle(for: type(of: self)).path(forResource: "INSPhotoGallery", ofType: "bundle") {
+            let bundle = Bundle(path: bundlePath)
+            leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "INSPhotoGalleryClose", in: bundle, compatibleWith: nil), landscapeImagePhone: UIImage(named: "INSPhotoGalleryCloseLandscape", in: bundle, compatibleWith: nil), style: .plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
         } else {
-            leftBarButtonItem = UIBarButtonItem(title: "CLOSE".uppercaseString, style: .Plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
+            leftBarButtonItem = UIBarButtonItem(title: "CLOSE".uppercased(), style: .plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
         }
         
-        rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
+        rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
     }
     
     private func setupCaptionLabel() {
         captionLabel = UILabel()
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        captionLabel.backgroundColor = UIColor.clearColor()
+        captionLabel.backgroundColor = UIColor.clear
         captionLabel.numberOfLines = 0
         addSubview(captionLabel)
         
-        let bottomConstraint = NSLayoutConstraint(item: self, attribute: .Bottom, relatedBy: .Equal, toItem: captionLabel, attribute: .Bottom, multiplier: 1.0, constant: 8.0)
-        let leadingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1.0, constant: 8.0)
-        let trailingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: 8.0)
+        let bottomConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: captionLabel, attribute: .bottom, multiplier: 1.0, constant: 8.0)
+        let leadingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 8.0)
+        let trailingConstraint = NSLayoutConstraint(item: captionLabel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 8.0)
         self.addConstraints([bottomConstraint,leadingConstraint,trailingConstraint])
     }
 }

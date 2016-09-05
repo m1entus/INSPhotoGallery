@@ -1,13 +1,25 @@
 PODS:
-  - HanekeSwift (0.10.1)
   - INSNibLoading (1.0.1)
+  - Kingfisher (2.5.0)
 
 DEPENDENCIES:
-  - HanekeSwift
   - INSNibLoading
+  - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`, branch `swift3`)
+
+EXTERNAL SOURCES:
+  Kingfisher:
+    :branch: swift3
+    :git: https://github.com/onevcat/Kingfisher.git
+
+CHECKOUT OPTIONS:
+  Kingfisher:
+    :commit: 609445170d3736b12d01024a953ceb849bc5d071
+    :git: https://github.com/onevcat/Kingfisher.git
 
 SPEC CHECKSUMS:
-  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   INSNibLoading: 1b8d0ee31b94c124bffe2609e697e0a43117a78f
+  Kingfisher: d467bd710907ec9aa94aaddecaa5390aa3559819
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 6adeabf6c63ce164ecc944fc6b75c1dceb253597
+
+COCOAPODS: 1.0.1

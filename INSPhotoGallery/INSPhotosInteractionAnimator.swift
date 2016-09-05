@@ -26,41 +26,41 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
     
     private var transitionContext: UIViewControllerContextTransitioning?
     
-    func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         viewToHideWhenBeginningTransition?.alpha = 0.0
         self.transitionContext = transitionContext
     }
     
-    func handlePanWithPanGestureRecognizer(gestureRecognizer: UIPanGestureRecognizer, viewToPan: UIView, anchorPoint: CGPoint) {
-        guard let fromView = transitionContext?.viewForKey(UITransitionContextFromViewKey) else {
+    func handlePanWithPanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer, viewToPan: UIView, anchorPoint: CGPoint) {
+        guard let fromView = transitionContext?.view(forKey: UITransitionContextViewKey.from) else {
             return
         }
-        let translatedPanGesturePoint = gestureRecognizer.translationInView(fromView)
+        let translatedPanGesturePoint = gestureRecognizer.translation(in: fromView)
         let newCenterPoint = CGPoint(x: anchorPoint.x, y: anchorPoint.y + translatedPanGesturePoint.y)
         
         viewToPan.center = newCenterPoint
         
         let verticalDelta = newCenterPoint.y - anchorPoint.y
         let backgroundAlpha = backgroundAlphaForPanningWithVerticalDelta(verticalDelta)
-        fromView.backgroundColor = fromView.backgroundColor?.colorWithAlphaComponent(backgroundAlpha)
+        fromView.backgroundColor = fromView.backgroundColor?.withAlphaComponent(backgroundAlpha)
         
-        if gestureRecognizer.state == .Ended {
+        if gestureRecognizer.state == .ended {
             finishPanWithPanGestureRecognizer(gestureRecognizer, verticalDelta: verticalDelta,viewToPan: viewToPan, anchorPoint: anchorPoint)
         }
     }
     
-    func finishPanWithPanGestureRecognizer(gestureRecognizer: UIPanGestureRecognizer, verticalDelta: CGFloat, viewToPan: UIView, anchorPoint: CGPoint) {
-        guard let fromView = transitionContext?.viewForKey(UITransitionContextFromViewKey) else {
+    func finishPanWithPanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer, verticalDelta: CGFloat, viewToPan: UIView, anchorPoint: CGPoint) {
+        guard let fromView = transitionContext?.view(forKey: UITransitionContextViewKey.from) else {
             return
         }
         let returnToCenterVelocityAnimationRatio = 0.00007
         let panDismissDistanceRatio = 50.0 / 667.0 // distance over iPhone 6 height
         let panDismissMaximumDuration = 0.45
         
-        let velocityY = gestureRecognizer.velocityInView(gestureRecognizer.view).y
+        let velocityY = gestureRecognizer.velocity(in: gestureRecognizer.view).y
         
         var animationDuration = (Double(abs(velocityY)) * returnToCenterVelocityAnimationRatio) + 0.2
-        var animationCurve: UIViewAnimationOptions = .CurveEaseOut
+        var animationCurve: UIViewAnimationOptions = .curveEaseOut
         var finalPageViewCenterPoint = anchorPoint
         var finalBackgroundAlpha = 1.0
         
@@ -70,8 +70,8 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
         var didAnimateUsingAnimator = false
         
         if isDismissing {
-            if let animator = self.animator, let transitionContext = transitionContext where shouldAnimateUsingAnimator {
-                animator.animateTransition(transitionContext)
+            if let animator = self.animator, let transitionContext = transitionContext , shouldAnimateUsingAnimator {
+                animator.animateTransition(using: transitionContext)
                 didAnimateUsingAnimator = true
             } else {
                 let isPositiveDelta = verticalDelta >= 0
@@ -81,7 +81,7 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
                 
                 animationDuration = Double(abs(finalPageViewCenterPoint.y - viewToPan.center.y) / abs(velocityY))
                 animationDuration = min(animationDuration, panDismissMaximumDuration)
-                animationCurve = .CurveEaseOut
+                animationCurve = .curveEaseOut
                 finalBackgroundAlpha = 0.0
             }
         }
@@ -89,9 +89,9 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
         if didAnimateUsingAnimator {
             self.transitionContext = nil
         } else {
-            UIView.animateWithDuration(animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
+            UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurve, animations: { () -> Void in
                 viewToPan.center = finalPageViewCenterPoint
-                fromView.backgroundColor = fromView.backgroundColor?.colorWithAlphaComponent(CGFloat(finalBackgroundAlpha))
+                fromView.backgroundColor = fromView.backgroundColor?.withAlphaComponent(CGFloat(finalBackgroundAlpha))
                 
             }, completion: { finished in
                 if isDismissing {
@@ -104,30 +104,30 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
                 }
                 
                 self.viewToHideWhenBeginningTransition?.alpha = 1.0
-                self.transitionContext?.completeTransition(isDismissing && !(self.transitionContext?.transitionWasCancelled() ?? false))
+                self.transitionContext?.completeTransition(isDismissing && !(self.transitionContext?.transitionWasCancelled ?? false))
                 self.transitionContext = nil
             })
         }
     }
     
     private func fixCancellationStatusBarAppearanceBug() {
-        guard let toViewController = self.transitionContext?.viewControllerForKey(UITransitionContextToViewControllerKey),
-            let fromViewController = self.transitionContext?.viewControllerForKey(UITransitionContextFromViewControllerKey) else {
+        guard let toViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.to),
+            let fromViewController = self.transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.from) else {
                 return
         }
         
         let statusBarViewControllerSelector = Selector("_setPresentedSta" + "tusBarViewController:")
-        if toViewController.respondsToSelector(statusBarViewControllerSelector) && fromViewController.modalPresentationCapturesStatusBarAppearance {
-            toViewController.performSelector(statusBarViewControllerSelector, withObject: fromViewController)
+        if toViewController.responds(to: statusBarViewControllerSelector) && fromViewController.modalPresentationCapturesStatusBarAppearance {
+            toViewController.perform(statusBarViewControllerSelector, with: fromViewController)
         }
     }
     
     private func isRadar20070670Fixed() -> Bool {
-        return NSProcessInfo.processInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion.init(majorVersion: 8, minorVersion: 3, patchVersion: 0))
+        return ProcessInfo.processInfo.isOperatingSystemAtLeast(OperatingSystemVersion.init(majorVersion: 8, minorVersion: 3, patchVersion: 0))
     }
     
-    private func backgroundAlphaForPanningWithVerticalDelta(delta: CGFloat) -> CGFloat {
-        guard let fromView = transitionContext?.viewForKey(UITransitionContextFromViewKey) else {
+    private func backgroundAlphaForPanningWithVerticalDelta(_ delta: CGFloat) -> CGFloat {
+        guard let fromView = transitionContext?.view(forKey: UITransitionContextViewKey.from) else {
             return 0.0
         }
         
