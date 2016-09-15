@@ -373,12 +373,12 @@ public class INSPhotosViewController: UIViewController, UIPageViewControllerData
     }
     
     public override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if let _ = currentPhoto?.image ?? currentPhotoViewController?.scalingImageView.image where shouldHandleLongPressGesture && action == #selector(NSObject.copy(_:)) {
+        if let _ = currentPhoto?.image ?? currentPhotoViewController?.scalingImageView.image where shouldHandleLongPressGesture && action == #selector(NSObject.copy) {
             return true
         }
         return false
     }
-    
+
     // MARK: - Status Bar
     
     public override func prefersStatusBarHidden() -> Bool {

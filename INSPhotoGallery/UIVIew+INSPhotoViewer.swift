@@ -39,7 +39,7 @@ extension UIView {
             
             return snapshotedView
         } else {
-            return snapshotViewAfterScreenUpdates(true)
+            return snapshotViewAfterScreenUpdates(true)!
         }
     }
     
