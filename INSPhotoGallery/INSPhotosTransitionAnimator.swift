@@ -86,14 +86,16 @@ class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         if let toView = transitionContext.viewForKey(UITransitionContextToViewKey),
            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) {
             toView.frame = transitionContext.finalFrameForViewController(toViewController)
-            if let containerView = transitionContext.containerView() where !toView.isDescendantOfView(containerView) {
+            let containerView = transitionContext.containerView()
+            
+            if !toView.isDescendantOfView(containerView) {
                 containerView.addSubview(toView)
             }
         }
         
         if dismissing {
             if let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey) {
-                transitionContext.containerView()?.bringSubviewToFront(fromView)
+                transitionContext.containerView().bringSubviewToFront(fromView)
             }
         }
     }
@@ -116,9 +118,7 @@ class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     
     func performZoomingAnimationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning) {
         
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
+        let containerView = transitionContext.containerView()
         guard let startingView = startingView, let endingView = endingView else {
             return
         }
