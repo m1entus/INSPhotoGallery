@@ -20,7 +20,6 @@
 		642427441CDE10970037E8DA /* INSPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424273A1CDE10970037E8DA /* INSPhotoViewController.swift */; };
 		642427451CDE10970037E8DA /* INSScalingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424273B1CDE10970037E8DA /* INSScalingImageView.swift */; };
 		642427461CDE10970037E8DA /* UIVIew+INSPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424273C1CDE10970037E8DA /* UIVIew+INSPhotoViewer.swift */; };
-		CC2C6F6CFCB580C59030916E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDCCEF4783A040A397D6717 /* Pods.framework */; };
 		D2EF35F51CB288F300033131 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF35F41CB288F300033131 /* AppDelegate.swift */; };
 		D2EF35F71CB288F300033131 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF35F61CB288F300033131 /* ViewController.swift */; };
 		D2EF35FA1CB288F300033131 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2EF35F81CB288F300033131 /* Main.storyboard */; };
@@ -32,6 +31,7 @@
 		D2EF36201CB299CF00033131 /* CustomOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2EF361F1CB299CF00033131 /* CustomOverlayView.xib */; };
 		D2EF36221CB29C6600033131 /* CustomPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF36211CB29C6600033131 /* CustomPhotoModel.swift */; };
 		D2EF36241CB2A67800033131 /* CustomModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF36231CB2A67800033131 /* CustomModelViewController.swift */; };
+		FB44620B1AE393EEB9BC3649 /* Pods_INSPhotoGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043F1D6415A9A5BC7A90DF71 /* Pods_INSPhotoGallery.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		52DA31F96E56812A6C09D2DA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		043F1D6415A9A5BC7A90DF71 /* Pods_INSPhotoGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_INSPhotoGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46019318530834A492BDDA22 /* Pods-INSPhotoGallery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INSPhotoGallery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-INSPhotoGallery/Pods-INSPhotoGallery.debug.xcconfig"; sourceTree = "<group>"; };
 		642427261CDE10740037E8DA /* INSPhotoGalleryFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INSPhotoGalleryFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		642427281CDE10750037E8DA /* INSPhotoGalleryFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INSPhotoGalleryFramework.h; sourceTree = "<group>"; };
 		6424272A1CDE10750037E8DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,7 +74,7 @@
 		6424273A1CDE10970037E8DA /* INSPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = INSPhotoViewController.swift; path = ../../INSPhotoGallery/INSPhotoViewController.swift; sourceTree = "<group>"; };
 		6424273B1CDE10970037E8DA /* INSScalingImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = INSScalingImageView.swift; path = ../../INSPhotoGallery/INSScalingImageView.swift; sourceTree = "<group>"; };
 		6424273C1CDE10970037E8DA /* UIVIew+INSPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIew+INSPhotoViewer.swift"; path = "../../INSPhotoGallery/UIVIew+INSPhotoViewer.swift"; sourceTree = "<group>"; };
-		7E0A6F9305E2B70C9951142C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A122ACF7A5F3C75B8FB59EED /* Pods-INSPhotoGallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INSPhotoGallery.release.xcconfig"; path = "Pods/Target Support Files/Pods-INSPhotoGallery/Pods-INSPhotoGallery.release.xcconfig"; sourceTree = "<group>"; };
 		BFDCCEF4783A040A397D6717 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EF35F11CB288F300033131 /* INSPhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INSPhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EF35F41CB288F300033131 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6424272D1CDE10750037E8DA /* INSPhotoGalleryFramework.framework in Frameworks */,
-				CC2C6F6CFCB580C59030916E /* Pods.framework in Frameworks */,
+				FB44620B1AE393EEB9BC3649 /* Pods_INSPhotoGallery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,15 +134,16 @@
 			isa = PBXGroup;
 			children = (
 				BFDCCEF4783A040A397D6717 /* Pods.framework */,
+				043F1D6415A9A5BC7A90DF71 /* Pods_INSPhotoGallery.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7DC0C144B365E6A5E04F8728 /* Pods */ = {
+		B884F781A6C59E9DC8012C7C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				52DA31F96E56812A6C09D2DA /* Pods.debug.xcconfig */,
-				7E0A6F9305E2B70C9951142C /* Pods.release.xcconfig */,
+				46019318530834A492BDDA22 /* Pods-INSPhotoGallery.debug.xcconfig */,
+				A122ACF7A5F3C75B8FB59EED /* Pods-INSPhotoGallery.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -152,8 +154,8 @@
 				D2EF35F31CB288F300033131 /* INSPhotoGallery */,
 				642427271CDE10750037E8DA /* INSPhotoGalleryFramework */,
 				D2EF35F21CB288F300033131 /* Products */,
-				7DC0C144B365E6A5E04F8728 /* Pods */,
 				6C22ABAEE0CC1A71AB7B6AF8 /* Frameworks */,
+				B884F781A6C59E9DC8012C7C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,13 +231,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2EF36031CB288F300033131 /* Build configuration list for PBXNativeTarget "INSPhotoGallery" */;
 			buildPhases = (
-				FFD481CC20A7D03E3BFD0A9D /* Check Pods Manifest.lock */,
+				430D737234B234F1BDA3BFFA /* [CP] Check Pods Manifest.lock */,
 				D2EF35ED1CB288F300033131 /* Sources */,
 				D2EF35EE1CB288F300033131 /* Frameworks */,
 				D2EF35EF1CB288F300033131 /* Resources */,
-				295459D9D817169DE522A196 /* Embed Pods Frameworks */,
-				C73ED651E9AE9BCD968CB264 /* Copy Pods Resources */,
 				642427321CDE10750037E8DA /* Embed Frameworks */,
+				AD54B7D6CFDA54F486B6350B /* [CP] Embed Pods Frameworks */,
+				17D7FE4374E94EE2F6A42339 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -254,14 +256,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Inspace Labs Sp z o. o. Spółka Komandytowa";
 				TargetAttributes = {
 					642427251CDE10740037E8DA = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					D2EF35F01CB288F300033131 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -307,49 +311,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		295459D9D817169DE522A196 /* Embed Pods Frameworks */ = {
+		17D7FE4374E94EE2F6A42339 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-INSPhotoGallery/Pods-INSPhotoGallery-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C73ED651E9AE9BCD968CB264 /* Copy Pods Resources */ = {
+		430D737234B234F1BDA3BFFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FFD481CC20A7D03E3BFD0A9D /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AD54B7D6CFDA54F486B6350B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-INSPhotoGallery/Pods-INSPhotoGallery-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -419,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -432,6 +437,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -442,6 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -454,6 +461,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.inspace.INSPhotoGalleryFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -474,8 +482,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -519,8 +529,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -539,37 +551,40 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		D2EF36041CB288F300033131 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52DA31F96E56812A6C09D2DA /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 46019318530834A492BDDA22 /* Pods-INSPhotoGallery.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = INSPhotoGallery/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.inspace.INSPhotoGallery;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)_Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		D2EF36051CB288F300033131 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E0A6F9305E2B70C9951142C /* Pods.release.xcconfig */;
+			baseConfigurationReference = A122ACF7A5F3C75B8FB59EED /* Pods-INSPhotoGallery.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = INSPhotoGallery/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.inspace.INSPhotoGallery;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)_Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

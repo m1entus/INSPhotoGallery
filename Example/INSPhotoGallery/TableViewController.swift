@@ -12,9 +12,9 @@ class TableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier where identifier == "customOverlay" {
-            if let destinationVC = segue.destinationViewController as? ViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier , identifier == "customOverlay" {
+            if let destinationVC = segue.destination as? ViewController {
                 destinationVC.useCustomOverlay = true
             }
         }

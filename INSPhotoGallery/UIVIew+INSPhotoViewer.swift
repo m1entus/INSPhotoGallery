@@ -25,7 +25,7 @@ extension UIView {
             var snapshotedView: UIView!
             
             if let view = self as? UIImageView {
-                snapshotedView = view.dynamicType.init(image: view.image)
+                snapshotedView = type(of: view).init(image: view.image)
                 snapshotedView.bounds = view.bounds
             } else {
                 snapshotedView = UIView(frame: frame)
@@ -39,19 +39,19 @@ extension UIView {
             
             return snapshotedView
         } else {
-            return snapshotViewAfterScreenUpdates(true)!
+            return snapshotView(afterScreenUpdates: true)!
         }
     }
     
-    func ins_translatedCenterPointToContainerView(containerView: UIView) -> CGPoint {
+    func ins_translatedCenterPointToContainerView(_ containerView: UIView) -> CGPoint {
         var centerPoint = center
         
         // Special case for zoomed scroll views.
-        if let scrollView = self.superview as? UIScrollView where scrollView.zoomScale != 1.0 {
+        if let scrollView = self.superview as? UIScrollView , scrollView.zoomScale != 1.0 {
             centerPoint.x += (scrollView.bounds.width - scrollView.contentSize.width) / 2.0 + scrollView.contentOffset.x
             centerPoint.y += (scrollView.bounds.height - scrollView.contentSize.height) / 2.0 + scrollView.contentOffset.y
         }
-        return self.superview?.convertPoint(centerPoint, toView: containerView) ?? CGPoint.zero
+        return self.superview?.convert(centerPoint, to: containerView) ?? CGPoint.zero
     }
 }
 

@@ -14,40 +14,40 @@ class CustomOverlayView: INSNibLoadedView {
     weak var photosViewController: INSPhotosViewController?
     
     // Pass the touches down to other views
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        if let hitView = super.hitTest(point, withEvent: event) where hitView != self {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let hitView = super.hitTest(point, with: event) , hitView != self {
             return hitView
         }
         return nil
     }
     
-    @IBAction func closeButtonTapped(sender: AnyObject) {
-        photosViewController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonTapped(_ sender: AnyObject) {
+        photosViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
 
 extension CustomOverlayView: INSPhotosOverlayViewable {
-    func populateWithPhoto(photo: INSPhotoViewable) {
+    func populateWithPhoto(_ photo: INSPhotoViewable) {
         
     }
-    func setHidden(hidden: Bool, animated: Bool) {
-        if self.hidden == hidden {
+    func setHidden(_ hidden: Bool, animated: Bool) {
+        if self.isHidden == hidden {
             return
         }
         
         if animated {
-            self.hidden = false
+            self.isHidden = false
             self.alpha = hidden ? 1.0 : 0.0
             
-            UIView.animateWithDuration(0.2, delay: 0.0, options: [.CurveEaseInOut, .AllowAnimatedContent, .AllowUserInteraction], animations: { () -> Void in
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: [.allowAnimatedContent, .allowUserInteraction], animations: { () -> Void in
                 self.alpha = hidden ? 0.0 : 1.0
                 }, completion: { result in
                     self.alpha = 1.0
-                    self.hidden = hidden
+                    self.isHidden = hidden
             })
         } else {
-            self.hidden = hidden
+            self.isHidden = hidden
         }
     }
 }

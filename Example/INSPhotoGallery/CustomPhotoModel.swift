@@ -7,18 +7,18 @@
 //
 
 import UIKit
-import Haneke
+import Kingfisher
 import INSPhotoGalleryFramework
 
 class CustomPhotoModel: NSObject, INSPhotoViewable {
     var image: UIImage?
     var thumbnailImage: UIImage?
     
-    var imageURL: NSURL?
-    var thumbnailImageURL: NSURL?
+    var imageURL: URL?
+    var thumbnailImageURL: URL?
     
     var attributedTitle: NSAttributedString? {
-        return NSAttributedString(string: "Example caption text", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        return NSAttributedString(string: "Example caption text", attributes: [NSForegroundColorAttributeName: UIColor.white])
     }
     
     init(image: UIImage?, thumbnailImage: UIImage?) {
@@ -26,40 +26,37 @@ class CustomPhotoModel: NSObject, INSPhotoViewable {
         self.thumbnailImage = thumbnailImage
     }
     
-    init(imageURL: NSURL?, thumbnailImageURL: NSURL?) {
+    init(imageURL: URL?, thumbnailImageURL: URL?) {
         self.imageURL = imageURL
         self.thumbnailImageURL = thumbnailImageURL
     }
     
-    init (imageURL: NSURL?, thumbnailImage: UIImage) {
+    init (imageURL: URL?, thumbnailImage: UIImage) {
         self.imageURL = imageURL
         self.thumbnailImage = thumbnailImage
     }
     
-    func loadImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
+    func loadImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ()) {
         if let url = imageURL {
-            Shared.imageCache.fetch(URL: url).onSuccess({ image in
-                completion(image: image, error: nil)
-            }).onFailure({ error in
-                completion(image: nil, error: error)
+            
+            KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                completion(image, error)
             })
         } else {
-            completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
+            completion(nil, NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
         }
     }
-    func loadThumbnailImageWithCompletionHandler(completion: (image: UIImage?, error: NSError?) -> ()) {
+    func loadThumbnailImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ()) {
         if let thumbnailImage = thumbnailImage {
-            completion(image: thumbnailImage, error: nil)
+            completion(thumbnailImage, nil)
             return
         }
         if let url = thumbnailImageURL {
-            Shared.imageCache.fetch(URL: url).onSuccess({ image in
-                completion(image: image, error: nil)
-            }).onFailure({ error in
-                completion(image: nil, error: error)
+            KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                completion(image, error)
             })
         } else {
-            completion(image: nil, error: NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
+            completion(nil, NSError(domain: "PhotoDomain", code: -1, userInfo: [ NSLocalizedDescriptionKey: "Couldn't load image"]))
         }
     }
 }
