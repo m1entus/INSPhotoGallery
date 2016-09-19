@@ -1,25 +1,15 @@
 PODS:
   - INSNibLoading (1.0.1)
-  - Kingfisher (2.5.0)
+  - Kingfisher (3.0.1)
 
 DEPENDENCIES:
   - INSNibLoading
-  - Kingfisher (from `https://github.com/onevcat/Kingfisher.git`, branch `swift3`)
-
-EXTERNAL SOURCES:
-  Kingfisher:
-    :branch: swift3
-    :git: https://github.com/onevcat/Kingfisher.git
-
-CHECKOUT OPTIONS:
-  Kingfisher:
-    :commit: 609445170d3736b12d01024a953ceb849bc5d071
-    :git: https://github.com/onevcat/Kingfisher.git
+  - Kingfisher
 
 SPEC CHECKSUMS:
   INSNibLoading: 1b8d0ee31b94c124bffe2609e697e0a43117a78f
-  Kingfisher: d467bd710907ec9aa94aaddecaa5390aa3559819
+  Kingfisher: d5a491b45ea453d90a31bd2c0831d5243e73a73f
 
-PODFILE CHECKSUM: 6adeabf6c63ce164ecc944fc6b75c1dceb253597
+PODFILE CHECKSUM: 65ef0a362e355fd18c77f31b51039f3d5b311896
 
 COCOAPODS: 1.0.1
