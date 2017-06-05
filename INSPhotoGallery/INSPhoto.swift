@@ -26,6 +26,7 @@ import UIKit
 @objc public protocol INSPhotoViewable: class {
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
+    @objc optional var isDeletable: Bool { get }
     
     func loadImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ())
     func loadThumbnailImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ())
