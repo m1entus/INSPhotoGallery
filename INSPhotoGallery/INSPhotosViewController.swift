@@ -23,6 +23,7 @@ public typealias INSPhotosViewControllerReferenceViewHandler = (_ photo: INSPhot
 public typealias INSPhotosViewControllerNavigateToPhotoHandler = (_ photo: INSPhotoViewable) -> ()
 public typealias INSPhotosViewControllerDismissHandler = (_ viewController: INSPhotosViewController) -> ()
 public typealias INSPhotosViewControllerLongPressHandler = (_ photo: INSPhotoViewable, _ gestureRecognizer: UILongPressGestureRecognizer) -> (Bool)
+public typealias INSPhotosViewControllerDeletePhotoHandler = (_ photo: INSPhotoViewable) -> ()
 
 
 open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIViewControllerTransitioningDelegate {
@@ -51,6 +52,11 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      * Called when a photo is long pressed.
      */
     open var longPressGestureHandler: INSPhotosViewControllerLongPressHandler?
+    
+    /*
+     * Called when delete is tapped on a photo
+     */
+    open var deletePhotoHandler: INSPhotosViewControllerDeletePhotoHandler?
     
     /*
      * The overlay view displayed over photos, can be changed but must implement INSPhotosOverlayViewable
@@ -98,6 +104,16 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     private var interactiveDismissal: Bool = false
     private var statusBarHidden = false
     private var shouldHandleLongPressGesture = false
+    
+    private func newCurrentPhotoAfterDeletion(currentPhotoIndex: Int) -> INSPhotoViewable? {
+        let previousPhotoIndex = currentPhotoIndex - 1
+        if let newCurrentPhoto = self.dataSource.photoAtIndex(currentPhotoIndex) {
+            return newCurrentPhoto
+        }else if let previousPhoto = self.dataSource.photoAtIndex(previousPhotoIndex) {
+            return previousPhoto
+        }
+        return nil
+    }
     
     // MARK: - Initialization
     
@@ -220,12 +236,12 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      - parameter photo:    The photo to make the currently displayed photo.
      - parameter animated: Whether to animate the transition to the new photo.
      */
-    open func changeToPhoto(_ photo: INSPhotoViewable, animated: Bool) {
+    open func changeToPhoto(_ photo: INSPhotoViewable, animated: Bool, direction: UIPageViewControllerNavigationDirection = .forward) {
         if !dataSource.containsPhoto(photo) {
             return
         }
         let photoViewController = initializePhotoViewControllerForPhoto(photo)
-        pageViewController.setViewControllers([photoViewController], direction: .forward, animated: animated, completion: nil)
+        pageViewController.setViewControllers([photoViewController], direction: direction, animated: animated, completion: nil)
         updateCurrentPhotosInformation()
     }
     
@@ -243,6 +259,26 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     
     @objc private func handleSingleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
         overlayView.setHidden(!overlayView.view().isHidden, animated: true)
+    }
+    
+    // MARK: - Target Actions
+    
+    open func handleDeleteButtonTapped(){
+        if let currentPhoto = self.currentPhoto {
+            if let currentPhotoIndex = self.dataSource.indexOfPhoto(currentPhoto) {
+                self.dataSource.deletePhoto(currentPhoto)
+                self.deletePhotoHandler?(currentPhoto)
+                if let photo = newCurrentPhotoAfterDeletion(currentPhotoIndex: currentPhotoIndex) {
+                    if currentPhotoIndex == self.dataSource.numberOfPhotos {
+                        self.changeToPhoto(photo, animated: true, direction: .reverse)
+                    }else{
+                        self.changeToPhoto(photo, animated: true)
+                    }
+                }else{
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     // MARK: - View Controller Dismissal

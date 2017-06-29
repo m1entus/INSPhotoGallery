@@ -13,6 +13,9 @@ import INSPhotoGalleryFramework
 class CustomPhotoModel: NSObject, INSPhotoViewable {
     var image: UIImage?
     var thumbnailImage: UIImage?
+    var isDeletable: Bool {
+        return true
+    }
     
     var imageURL: URL?
     var thumbnailImageURL: URL?

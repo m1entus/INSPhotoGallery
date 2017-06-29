@@ -41,6 +41,12 @@ public struct INSPhotosDataSource {
         return indexOfPhoto(photo) != nil
     }
     
+    public mutating func deletePhoto(_ photo: INSPhotoViewable){
+        if let index = self.indexOfPhoto(photo){
+            photos.remove(at: index)
+        }
+    }
+    
     public subscript(index: Int) -> INSPhotoViewable? {
         get {
             return photoAtIndex(index)
