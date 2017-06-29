@@ -213,6 +213,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         deleteToolbar.translatesAutoresizingMaskIntoConstraints = false
         deleteToolbar.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         deleteToolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+        deleteToolbar.isTranslucent = true
         let item = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(INSPhotosOverlayView.deleteButtonTapped(_:)))
         deleteToolbar.setItems([item], animated: false)
         addSubview(deleteToolbar)
