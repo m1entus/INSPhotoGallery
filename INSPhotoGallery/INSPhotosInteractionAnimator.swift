@@ -36,7 +36,7 @@ class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransit
             return
         }
         let translatedPanGesturePoint = gestureRecognizer.translation(in: fromView)
-        let newCenterPoint = CGPoint(x: anchorPoint.x, y: anchorPoint.y + translatedPanGesturePoint.y)
+        let newCenterPoint = CGPoint(x: anchorPoint.x + translatedPanGesturePoint.x, y: anchorPoint.y + translatedPanGesturePoint.y)
         
         viewToPan.center = newCenterPoint
         
