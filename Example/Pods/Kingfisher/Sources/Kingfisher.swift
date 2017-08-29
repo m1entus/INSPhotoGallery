@@ -1,8 +1,8 @@
 //
-//  Kingfisher.h
+//  Kingfisher.swift
 //  Kingfisher
 //
-//  Created by Wei Wang on 15/4/6.
+//  Created by Wei Wang on 16/9/14.
 //
 //  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
 //
@@ -24,14 +24,48 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+import Foundation
+import ImageIO
 
-//! Project version number for Kingfisher.
-FOUNDATION_EXPORT double KingfisherVersionNumber;
+#if os(macOS)
+    import AppKit
+    public typealias Image = NSImage
+    public typealias Color = NSColor
+    public typealias ImageView = NSImageView
+    typealias Button = NSButton
+#else
+    import UIKit
+    public typealias Image = UIImage
+    public typealias Color = UIColor
+    #if !os(watchOS)
+    public typealias ImageView = UIImageView
+    typealias Button = UIButton
+    #endif
+#endif
 
-//! Project version string for Kingfisher.
-FOUNDATION_EXPORT const unsigned char KingfisherVersionString[];
+public final class Kingfisher<Base> {
+    public let base: Base
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
 
-// In this header, you should import all the public headers of your framework using statements like #import <Kingfisher/PublicHeader.h>
+/**
+ A type that has Kingfisher extensions.
+ */
+public protocol KingfisherCompatible {
+    associatedtype CompatibleType
+    var kf: CompatibleType { get }
+}
 
+public extension KingfisherCompatible {
+    public var kf: Kingfisher<Self> {
+        get { return Kingfisher(self) }
+    }
+}
 
+extension Image: KingfisherCompatible { }
+#if !os(watchOS)
+extension ImageView: KingfisherCompatible { }
+extension Button: KingfisherCompatible { }
+#endif

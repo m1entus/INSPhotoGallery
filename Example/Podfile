@@ -2,7 +2,7 @@ platform :ios, "8.0"
 
 target "INSPhotoGallery" do
     pod 'INSNibLoading'
-    pod 'Kingfisher'
+    pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git', :branch => 'swift4'
 end
 
 use_frameworks!

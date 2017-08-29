@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         for photo in photos {
             if let photo = photo as? INSPhoto {
-                photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSForegroundColorAttributeName: UIColor.white])
+                photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
             }
         }
     }
