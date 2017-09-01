@@ -21,28 +21,43 @@ Permission is granted to anyone to use this software for any purpose,including c
 
 import Foundation
 
-extension String {
-    var kf_MD5: String {
-        if let data = data(using: .utf8) {
-            
+public struct StringProxy {
+    fileprivate let base: String
+    init(proxy: String) {
+        base = proxy
+    }
+}
+
+extension String: KingfisherCompatible {
+    public typealias CompatibleType = StringProxy
+    public var kf: CompatibleType {
+        return StringProxy(proxy: self)
+    }
+}
+
+extension StringProxy {
+    var md5: String {
+        if let data = base.data(using: .utf8, allowLossyConversion: true) {
+
             let message = data.withUnsafeBytes { bytes -> [UInt8] in
                 return Array(UnsafeBufferPointer(start: bytes, count: data.count))
             }
-            
+
             let MD5Calculator = MD5(message)
             let MD5Data = MD5Calculator.calculate()
 
-            let MD5String = NSMutableString()
+            var MD5String = String()
             for c in MD5Data {
-                MD5String.appendFormat("%02x", c)
+                MD5String += String(format: "%02x", c)
             }
-            return MD5String as String
-            
+            return MD5String
+
         } else {
-            return self
+            return base
         }
     }
 }
+
 
 /** array of bytes, little-endian representation */
 func arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
@@ -266,7 +281,11 @@ class MD5: HashProtocol {
         
         hh.forEach {
             let itemLE = $0.littleEndian
-            result += [UInt8(itemLE & 0xff), UInt8((itemLE >> 8) & 0xff), UInt8((itemLE >> 16) & 0xff), UInt8((itemLE >> 24) & 0xff)]
+            let r1 = UInt8(itemLE & 0xff)
+            let r2 = UInt8((itemLE >> 8) & 0xff)
+            let r3 = UInt8((itemLE >> 16) & 0xff)
+            let r4 = UInt8((itemLE >> 24) & 0xff)
+            result += [r1, r2, r3, r4]
         }
         return result
     }

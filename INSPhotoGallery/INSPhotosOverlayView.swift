@@ -55,7 +55,8 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
             navigationItem.rightBarButtonItem = rightBarButtonItem
         }
     }
-    var titleTextAttributes: [String : AnyObject] = [:] {
+    
+    var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
         didSet {
             navigationBar.titleTextAttributes = titleTextAttributes
         }
