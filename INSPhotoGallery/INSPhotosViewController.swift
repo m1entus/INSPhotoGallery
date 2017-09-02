@@ -198,10 +198,10 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.setNeedsStatusBarAppearanceUpdate()
         }
+        updateCurrentPhotosInformation()
     }
     
     private func setupOverlayView() {
-        updateCurrentPhotosInformation()
         
         overlayView.view().autoresizingMask = [.flexibleWidth, .flexibleHeight]
         overlayView.view().frame = view.bounds
