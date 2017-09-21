@@ -55,9 +55,10 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
             navigationItem.rightBarButtonItem = rightBarButtonItem
         }
     }
-    var titleTextAttributes: [String : AnyObject] = [:] {
+    
+    var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
         didSet {
-            navigationBar.titleTextAttributes = Dictionary(uniqueKeysWithValues: titleTextAttributes.lazy.map { (NSAttributedStringKey($0.key), $0.value) })
+            navigationBar.titleTextAttributes = Dictionary(uniqueKeysWithValues: titleTextAttributes.lazy.map { ($0.key, $0.value) })
         }
     }
     
