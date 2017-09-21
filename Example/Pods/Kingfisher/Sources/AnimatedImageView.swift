@@ -9,7 +9,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2016 Reda Lemeden.
+//  Copyright (c) 2017 Reda Lemeden.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -35,7 +35,7 @@ import UIKit
 import ImageIO
 
 /// `AnimatedImageView` is a subclass of `UIImageView` for displaying animated image.
-public class AnimatedImageView: UIImageView {
+open class AnimatedImageView: UIImageView {
     
     /// Proxy object for prevending a reference cycle between the CADDisplayLink and AnimatedImageView.
     class TargetProxy {
@@ -91,7 +91,7 @@ public class AnimatedImageView: UIImageView {
     }()
     
     // MARK: - Override
-    override public var image: Image? {
+    override open var image: Image? {
         didSet {
             if image != oldValue {
                 reset()
@@ -107,7 +107,7 @@ public class AnimatedImageView: UIImageView {
         }
     }
     
-    override public var isAnimating: Bool {
+    override open var isAnimating: Bool {
         if isDisplayLinkInitialized {
             return !displayLink.isPaused
         } else {
@@ -116,7 +116,7 @@ public class AnimatedImageView: UIImageView {
     }
     
     /// Starts the animation.
-    override public func startAnimating() {
+    override open func startAnimating() {
         if self.isAnimating {
             return
         } else {
@@ -125,14 +125,14 @@ public class AnimatedImageView: UIImageView {
     }
     
     /// Stops the animation.
-    override public func stopAnimating() {
+    override open func stopAnimating() {
         super.stopAnimating()
         if isDisplayLinkInitialized {
             displayLink.isPaused = true
         }
     }
     
-    override public func display(_ layer: CALayer) {
+    override open func display(_ layer: CALayer) {
         if let currentFrame = animator?.currentFrame {
             layer.contents = currentFrame.cgImage
         } else {
@@ -140,29 +140,29 @@ public class AnimatedImageView: UIImageView {
         }
     }
     
-    override public func didMoveToWindow() {
+    override open func didMoveToWindow() {
         super.didMoveToWindow()
         didMove()
     }
     
-    override public func didMoveToSuperview() {
+    override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         didMove()
     }
-    
-    // This is for back compatibility that using regular UIImageView to show GIF.
-    override func shouldPreloadAllGIF() -> Bool {
+
+    // This is for back compatibility that using regular UIImageView to show animated image.
+    override func shouldPreloadAllAnimation() -> Bool {
         return false
     }
-    
+
     // MARK: - Private method
     /// Reset the animator.
     private func reset() {
         animator = nil
-        if let imageSource = image?.kf_imageSource?.imageRef {
+        if let imageSource = image?.kf.imageSource?.imageRef {
             animator = Animator(imageSource: imageSource, contentMode: contentMode, size: bounds.size, framePreloadCount: framePreloadCount)
             animator?.needsPrescaling = needsPrescaling
-            animator?.prepareFrames()
+            animator?.prepareFramesAsynchronously()
         }
         didMove()
     }
@@ -179,7 +179,25 @@ public class AnimatedImageView: UIImageView {
     
     /// Update the current frame with the displayLink duration.
     private func updateFrame() {
-        if animator?.updateCurrentFrame(duration: displayLink.duration) ?? false {
+        let duration: CFTimeInterval
+
+        // CA based display link is opt-out from ProMotion by default.
+        // So the duration and its FPS might not match. 
+        // See [#718](https://github.com/onevcat/Kingfisher/issues/718)
+        if #available(iOS 10.0, tvOS 10.0, *) {
+            // By setting CADisableMinimumFrameDuration to YES in Info.plist may 
+            // cause the preferredFramesPerSecond being 0
+            if displayLink.preferredFramesPerSecond == 0 {
+                duration = displayLink.duration
+            } else {
+                // Some devices (like iPad Pro 10.5) will have a different FPS.
+                duration = 1.0 / Double(displayLink.preferredFramesPerSecond)
+            }
+        } else {
+            duration = displayLink.duration
+        }
+    
+        if animator?.updateCurrentFrame(duration: duration) ?? false {
             layer.setNeedsDisplay()
         }
     }
@@ -208,7 +226,7 @@ class Animator {
     fileprivate var timeSinceLastFrameChange: TimeInterval = 0.0
     fileprivate var needsPrescaling = true
     
-    /// Loop count of animatd image.
+    /// Loop count of animated image.
     private var loopCount = 0
     
     var currentFrame: UIImage? {
@@ -216,6 +234,10 @@ class Animator {
     }
     
     var contentMode = UIViewContentMode.scaleToFill
+    
+    private lazy var preloadQueue: DispatchQueue = {
+        return DispatchQueue(label: "com.onevcat.Kingfisher.Animator.preloadQueue")
+    }()
     
     /**
      Init an animator with image source reference.
@@ -235,12 +257,18 @@ class Animator {
     }
     
     func frame(at index: Int) -> Image? {
-        return animatedFrames[index].image
+        return animatedFrames[safe: index]?.image
     }
     
-    func prepareFrames() {
+    func prepareFramesAsynchronously() {
+        preloadQueue.async { [weak self] in
+            self?.prepareFrames()
+        }
+    }
+    
+    private func prepareFrames() {
         frameCount = CGImageSourceGetCount(imageSource)
-
+        
         if let properties = CGImageSourceCopyProperties(imageSource, nil),
             let gifInfo = (properties as NSDictionary)[kCGImagePropertyGIFDictionary as String] as? NSDictionary,
             let loopCount = gifInfo[kCGImagePropertyGIFLoopCount as String] as? Int
@@ -251,15 +279,18 @@ class Animator {
         let frameToProcess = min(frameCount, maxFrameCount)
         animatedFrames.reserveCapacity(frameToProcess)
         animatedFrames = (0..<frameToProcess).reduce([]) { $0 + pure(prepareFrame(at: $1))}
+        currentPreloadIndex = (frameToProcess + 1) % frameCount
     }
     
-    func prepareFrame(at index: Int) -> AnimatedFrame {
+    private func prepareFrame(at index: Int) -> AnimatedFrame {
+        
         guard let imageRef = CGImageSourceCreateImageAtIndex(imageSource, index, nil) else {
             return AnimatedFrame.null
         }
         
-        let frameDuration = imageSource.kf_GIFProperties(at: index).flatMap {
-            gifInfo -> Double? in
+        let defaultGIFFrameDuration = 0.100
+        let frameDuration = imageSource.kf.gifProperties(at: index).map {
+            gifInfo -> Double in
             
             let unclampedDelayTime = gifInfo[kCGImagePropertyGIFUnclampedDelayTime as String] as Double?
             let delayTime = gifInfo[kCGImagePropertyGIFDelayTime as String] as Double?
@@ -274,19 +305,19 @@ class Animator {
              
              See also: http://nullsleep.tumblr.com/post/16524517190/animated-gif-minimum-frame-delay-browser.
              */
-            return duration > 0.011 ? duration : 0.100
-        }
+            return duration > 0.011 ? duration : defaultGIFFrameDuration
+        } ?? defaultGIFFrameDuration
         
         let image = Image(cgImage: imageRef)
         let scaledImage: Image?
         
         if needsPrescaling {
-            scaledImage = image.kf_resize(to: size, for: contentMode)
+            scaledImage = image.kf.resize(to: size, for: contentMode)
         } else {
             scaledImage = image
         }
         
-        return AnimatedFrame(image: scaledImage, duration: frameDuration ?? 0.0)
+        return AnimatedFrame(image: scaledImage, duration: frameDuration)
     }
     
     /**
@@ -299,22 +330,34 @@ class Animator {
         }
         
         timeSinceLastFrameChange -= frameDuration
+        
         let lastFrameIndex = currentFrameIndex
         currentFrameIndex += 1
         currentFrameIndex = currentFrameIndex % animatedFrames.count
         
         if animatedFrames.count < frameCount {
-            animatedFrames[lastFrameIndex] = prepareFrame(at: currentPreloadIndex)
-            currentPreloadIndex += 1
-            currentPreloadIndex = currentPreloadIndex % frameCount
+            preloadFrameAsynchronously(at: lastFrameIndex)
         }
         return true
     }
+    
+    private func preloadFrameAsynchronously(at index: Int) {
+        preloadQueue.async { [weak self] in
+            self?.preloadFrame(at: index)
+        }
+    }
+    
+    private func preloadFrame(at index: Int) {
+        animatedFrames[index] = prepareFrame(at: currentPreloadIndex)
+        currentPreloadIndex += 1
+        currentPreloadIndex = currentPreloadIndex % frameCount
+    }
 }
 
-extension CGImageSource {
-    func kf_GIFProperties(at index: Int) -> [String: Double]? {
-        let properties = CGImageSourceCopyPropertiesAtIndex(self, index, nil) as Dictionary?
+extension CGImageSource: KingfisherCompatible { }
+extension Kingfisher where Base: CGImageSource {
+    func gifProperties(at index: Int) -> [String: Double]? {
+        let properties = CGImageSourceCopyPropertiesAtIndex(base, index, nil) as Dictionary?
         return properties?[kCGImagePropertyGIFDictionary] as? [String: Double]
     }
 }

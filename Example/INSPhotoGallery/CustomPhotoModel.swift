@@ -21,7 +21,7 @@ class CustomPhotoModel: NSObject, INSPhotoViewable {
     var thumbnailImageURL: URL?
     
     var attributedTitle: NSAttributedString? {
-        return NSAttributedString(string: "Example caption text", attributes: [NSForegroundColorAttributeName: UIColor.white])
+        return NSAttributedString(string: "Example caption text", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
     }
     
     init(image: UIImage?, thumbnailImage: UIImage?) {
