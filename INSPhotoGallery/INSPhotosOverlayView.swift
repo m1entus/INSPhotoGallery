@@ -56,11 +56,19 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         }
     }
     
+    #if swift(>=4.0)
     var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
         didSet {
-            navigationBar.titleTextAttributes = Dictionary(uniqueKeysWithValues: titleTextAttributes.lazy.map { ($0.key, $0.value) })
+            navigationBar.titleTextAttributes = titleTextAttributes
         }
     }
+    #else
+    var titleTextAttributes: [String : AnyObject] = [:] {
+        didSet {
+            navigationBar.titleTextAttributes = titleTextAttributes
+        }
+    }
+    #endif
     
     override init(frame: CGRect) {
         super.init(frame: frame)
