@@ -20,7 +20,7 @@
 import Foundation
 
 public struct INSPhotosDataSource {
-    private(set) var photos: [INSPhotoViewable] = []
+    public private(set) var photos: [INSPhotoViewable] = []
     
     public var numberOfPhotos: Int {
         return photos.count
