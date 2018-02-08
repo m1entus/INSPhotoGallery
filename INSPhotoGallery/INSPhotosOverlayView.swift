@@ -45,25 +45,25 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     private var topShadow: CAGradientLayer!
     private var bottomShadow: CAGradientLayer!
     
-    var leftBarButtonItem: UIBarButtonItem? {
+    open var leftBarButtonItem: UIBarButtonItem? {
         didSet {
             navigationItem.leftBarButtonItem = leftBarButtonItem
         }
     }
-    var rightBarButtonItem: UIBarButtonItem? {
+    open var rightBarButtonItem: UIBarButtonItem? {
         didSet {
             navigationItem.rightBarButtonItem = rightBarButtonItem
         }
     }
     
     #if swift(>=4.0)
-    var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
+    open var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
         didSet {
             navigationBar.titleTextAttributes = titleTextAttributes
         }
     }
     #else
-    var titleTextAttributes: [String : AnyObject] = [:] {
+    open var titleTextAttributes: [String : AnyObject] = [:] {
         didSet {
             navigationBar.titleTextAttributes = titleTextAttributes
         }
