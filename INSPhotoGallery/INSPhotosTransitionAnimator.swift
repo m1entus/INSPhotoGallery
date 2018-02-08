@@ -19,7 +19,7 @@
 
 import UIKit
 
-class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+public class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var dismissing: Bool = false
     
     var startingView: UIView?
@@ -53,7 +53,7 @@ class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
         }
     }
     
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         if shouldPerformZoomingAnimation {
             return animationDurationWithZooming
         }
@@ -69,7 +69,7 @@ class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     
     // MARK:- UIViewControllerAnimatedTransitioning
     
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         setupTransitionContainerHierarchyWithTransitionContext(transitionContext)
         
         // There is issue with startingView frame when performFadeAnimation

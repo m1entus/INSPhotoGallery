@@ -19,14 +19,14 @@
 
 import UIKit
 
-class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransitioning {
+public class INSPhotosInteractionAnimator: NSObject, UIViewControllerInteractiveTransitioning {
     var animator: UIViewControllerAnimatedTransitioning?
     var viewToHideWhenBeginningTransition: UIView?
     var shouldAnimateUsingAnimator: Bool = false
     
     private var transitionContext: UIViewControllerContextTransitioning?
     
-    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+    public func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         viewToHideWhenBeginningTransition?.alpha = 0.0
         self.transitionContext = transitionContext
     }

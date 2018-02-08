@@ -88,16 +88,16 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     // MARK: - Private
-    private(set) var pageViewController: UIPageViewController!
-    private(set) var dataSource: INSPhotosDataSource
+    public private(set) var pageViewController: UIPageViewController!
+    public private(set) var dataSource: INSPhotosDataSource
     
-    let interactiveAnimator: INSPhotosInteractionAnimator = INSPhotosInteractionAnimator()
-    let transitionAnimator: INSPhotosTransitionAnimator = INSPhotosTransitionAnimator()
+    public let interactiveAnimator: INSPhotosInteractionAnimator = INSPhotosInteractionAnimator()
+    public let transitionAnimator: INSPhotosTransitionAnimator = INSPhotosTransitionAnimator()
     
-    private(set) lazy var singleTapGestureRecognizer: UITapGestureRecognizer = {
+    public private(set) lazy var singleTapGestureRecognizer: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(INSPhotosViewController.handleSingleTapGestureRecognizer(_:)))
     }()
-    private(set) lazy var panGestureRecognizer: UIPanGestureRecognizer = {
+    public private(set) lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: #selector(INSPhotosViewController.handlePanGestureRecognizer(_:)))
     }()
     
@@ -323,7 +323,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     
     // MARK: - UIPageViewControllerDataSource / UIPageViewControllerDelegate
 
-    private func initializePhotoViewControllerForPhoto(_ photo: INSPhotoViewable) -> INSPhotoViewController {
+    public func initializePhotoViewControllerForPhoto(_ photo: INSPhotoViewable) -> INSPhotoViewController {
         let photoViewController = INSPhotoViewController(photo: photo)
         singleTapGestureRecognizer.require(toFail: photoViewController.doubleTapGestureRecognizer)
         photoViewController.longPressGestureHandler = { [weak self] gesture in
