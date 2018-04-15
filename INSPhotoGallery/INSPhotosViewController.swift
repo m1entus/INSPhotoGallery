@@ -115,6 +115,10 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         return nil
     }
     
+    private func orientationMaskSupportsOrientation(mask: UIInterfaceOrientationMask, orientation: UIInterfaceOrientation) -> Bool {
+        return (mask.rawValue & (1 << orientation.rawValue)) != 0
+    }
+    
     // MARK: - Initialization
     
     deinit {
@@ -252,6 +256,14 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - Gesture Recognizers
     
     @objc private func handlePanGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
+        // if current orientation is different from supported orientations of presenting vc, disable flick-to-dismiss
+        if let presentingViewController = presentingViewController {
+            if !orientationMaskSupportsOrientation(mask: presentingViewController.supportedInterfaceOrientations, orientation: UIApplication.shared.statusBarOrientation) {
+                return
+            }
+        }
+        
         if gestureRecognizer.state == .began {
             interactiveDismissal = true
             dismiss(animated: true, completion: nil)
