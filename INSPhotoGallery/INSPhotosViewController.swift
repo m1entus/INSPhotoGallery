@@ -74,6 +74,11 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
 
     /*
+     * Whether or not we should confirm with the user before deleting a photo
+     */
+    open var shouldConfirmDeletion: Bool = false
+
+    /*
      * INSPhotoViewController is currently displayed by page view controller
      */
     open var currentPhotoViewController: INSPhotoViewController? {
@@ -235,6 +240,37 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
             overlayView.populateWithPhoto(currentPhoto)
         }
     }
+
+    // MARK: - Helper methods
+
+    private func deleteCurrentPhoto() {
+        guard let currentPhoto = self.currentPhoto else {
+            return
+        }
+        guard let currentPhotoIndex = self.dataSource.indexOfPhoto(currentPhoto) else {
+            return
+        }
+        self.dataSource.deletePhoto(currentPhoto)
+        self.deletePhotoHandler?(currentPhoto)
+        if let photo = newCurrentPhotoAfterDeletion(currentPhotoIndex: currentPhotoIndex) {
+            if currentPhotoIndex == self.dataSource.numberOfPhotos {
+                self.changeToPhoto(photo, animated: true, direction: .reverse)
+            }else{
+                self.changeToPhoto(photo, animated: true)
+            }
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    private func confirmPhotoDeletion(delete: @escaping () -> Void) {
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this photo?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Delete Photo", style: .destructive, handler: { (_) in
+            delete()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
+    }
     
     // MARK: - Public
     
@@ -280,20 +316,12 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - Target Actions
     
     open func handleDeleteButtonTapped(){
-        if let currentPhoto = self.currentPhoto {
-            if let currentPhotoIndex = self.dataSource.indexOfPhoto(currentPhoto) {
-                self.dataSource.deletePhoto(currentPhoto)
-                self.deletePhotoHandler?(currentPhoto)
-                if let photo = newCurrentPhotoAfterDeletion(currentPhotoIndex: currentPhotoIndex) {
-                    if currentPhotoIndex == self.dataSource.numberOfPhotos {
-                        self.changeToPhoto(photo, animated: true, direction: .reverse)
-                    }else{
-                        self.changeToPhoto(photo, animated: true)
-                    }
-                }else{
-                    self.dismiss(animated: true, completion: nil)
-                }
+        if shouldConfirmDeletion {
+            confirmPhotoDeletion { [weak self] in
+                self?.deleteCurrentPhoto()
             }
+        } else {
+            deleteCurrentPhoto()
         }
     }
     
