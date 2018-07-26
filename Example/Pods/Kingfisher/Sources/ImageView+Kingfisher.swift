@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/4/6.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -55,22 +55,23 @@ extension Kingfisher where Base: ImageView {
      */
     @discardableResult
     public func setImage(with resource: Resource?,
-                         placeholder: Image? = nil,
+                         placeholder: Placeholder? = nil,
                          options: KingfisherOptionsInfo? = nil,
                          progressBlock: DownloadProgressBlock? = nil,
                          completionHandler: CompletionHandler? = nil) -> RetrieveImageTask
     {
         guard let resource = resource else {
-            base.image = placeholder
+            self.placeholder = placeholder
             setWebURL(nil)
             completionHandler?(nil, nil, .none, nil)
             return .empty
         }
         
         var options = KingfisherManager.shared.defaultOptions + (options ?? KingfisherEmptyOptionsInfo)
+        let noImageOrPlaceholderSet = base.image == nil && self.placeholder == nil
         
-        if !options.keepCurrentImageWhileLoading {
-            base.image = placeholder
+        if !options.keepCurrentImageWhileLoading || noImageOrPlaceholderSet { // Always set placeholder while there is no image/placehoer yet.
+            self.placeholder = placeholder
         }
 
         let maybeIndicator = indicator
@@ -110,6 +111,7 @@ extension Kingfisher where Base: ImageView {
                     guard let transitionItem = options.lastMatchIgnoringAssociatedValue(.transition(.none)),
                         case .transition(let transition) = transitionItem, ( options.forceTransition || cacheType == .none) else
                     {
+                        self.placeholder = nil
                         strongBase.image = image
                         completionHandler?(image, error, cacheType, imageURL)
                         return
@@ -119,6 +121,8 @@ extension Kingfisher where Base: ImageView {
                         UIView.transition(with: strongBase, duration: 0.0, options: [],
                                           animations: { maybeIndicator?.stopAnimatingView() },
                                           completion: { _ in
+
+                                            self.placeholder = nil
                                             UIView.transition(with: strongBase, duration: transition.duration,
                                                               options: [transition.animationOptions, .allowUserInteraction],
                                                               animations: {
@@ -152,6 +156,7 @@ extension Kingfisher where Base: ImageView {
 private var lastURLKey: Void?
 private var indicatorKey: Void?
 private var indicatorTypeKey: Void?
+private var placeholderKey: Void?
 private var imageTaskKey: Void?
 
 extension Kingfisher where Base: ImageView {
@@ -168,7 +173,7 @@ extension Kingfisher where Base: ImageView {
     /// Default is .none, means no indicator will be shown.
     public var indicatorType: IndicatorType {
         get {
-            let indicator = (objc_getAssociatedObject(base, &indicatorTypeKey) as? Box<IndicatorType?>)?.value
+            let indicator = objc_getAssociatedObject(base, &indicatorTypeKey) as? IndicatorType
             return indicator ?? .none
         }
         
@@ -184,7 +189,7 @@ extension Kingfisher where Base: ImageView {
                 indicator = anIndicator
             }
             
-            objc_setAssociatedObject(base, &indicatorTypeKey, Box(value: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &indicatorTypeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -193,7 +198,10 @@ extension Kingfisher where Base: ImageView {
     /// It will be `nil` if `indicatorType` is `.none`.
     public fileprivate(set) var indicator: Indicator? {
         get {
-            return (objc_getAssociatedObject(base, &indicatorKey) as? Box<Indicator?>)?.value
+            guard let box = objc_getAssociatedObject(base, &indicatorKey) as? Box<Indicator> else {
+                return nil
+            }
+            return box.value
         }
         
         set {
@@ -205,7 +213,7 @@ extension Kingfisher where Base: ImageView {
             // Add new
             if var newIndicator = newValue {
                 // Set default indicator frame if the view's frame not set.
-                if newIndicator.view.frame != .zero {
+                if newIndicator.view.frame == .zero {
                     newIndicator.view.frame = base.frame
                 }
                 newIndicator.viewCenter = CGPoint(x: base.bounds.midX, y: base.bounds.midY)
@@ -214,7 +222,9 @@ extension Kingfisher where Base: ImageView {
             }
             
             // Save in associated object
-            objc_setAssociatedObject(base, &indicatorKey, Box(value: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            // Wrap newValue with Box to workaround an issue that Swift does not recognize
+            // and casting protocol for associate object correctly. https://github.com/onevcat/Kingfisher/issues/872
+            objc_setAssociatedObject(base, &indicatorKey, newValue.map(Box.init), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -225,7 +235,28 @@ extension Kingfisher where Base: ImageView {
     fileprivate func setImageTask(_ task: RetrieveImageTask?) {
         objc_setAssociatedObject(base, &imageTaskKey, task, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
+    
+    public fileprivate(set) var placeholder: Placeholder? {
+        get {
+            return objc_getAssociatedObject(base, &placeholderKey) as? Placeholder
+        }
+        
+        set {
+            if let previousPlaceholder = placeholder {
+                previousPlaceholder.remove(from: base)
+            }
+            
+            if let newPlaceholder = newValue {
+                newPlaceholder.add(to: base)
+            } else {
+                base.image = nil
+            }
+            
+            objc_setAssociatedObject(base, &placeholderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
 }
+
 
 @objc extension ImageView {
     func shouldPreloadAllAnimation() -> Bool { return true }

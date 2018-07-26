@@ -4,7 +4,7 @@
 //
 //  Created by Wei Wang on 15/9/18.
 //
-//  Copyright (c) 2017 Wei Wang <onevcat@gmail.com>
+//  Copyright (c) 2018 Wei Wang <onevcat@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -56,10 +56,10 @@ to enable the animation transition.
 
 Apple's UIViewAnimationOptions is used under the hood.
 For custom transition, you should specified your own transition options, animations and 
-comletion handler as well.
+completion handler as well.
 */
 public enum ImageTransition {
-    ///  No animation transistion.
+    ///  No animation transition.
     case none
     
     /// Fade in the loaded image.
