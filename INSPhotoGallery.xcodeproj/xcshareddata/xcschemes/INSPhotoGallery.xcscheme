@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "642427251CDE10740037E8DA"
-               BuildableName = "INSPhotoGalleryFramework.framework"
-               BlueprintName = "INSPhotoGalleryFramework"
+               BlueprintIdentifier = "C9E5C37C2141313400B0694E"
+               BuildableName = "INSPhotoGallery.framework"
+               BlueprintName = "INSPhotoGallery"
                ReferencedContainer = "container:INSPhotoGallery.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "642427251CDE10740037E8DA"
-            BuildableName = "INSPhotoGalleryFramework.framework"
-            BlueprintName = "INSPhotoGalleryFramework"
+            BlueprintIdentifier = "C9E5C37C2141313400B0694E"
+            BuildableName = "INSPhotoGallery.framework"
+            BlueprintName = "INSPhotoGallery"
             ReferencedContainer = "container:INSPhotoGallery.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "642427251CDE10740037E8DA"
-            BuildableName = "INSPhotoGalleryFramework.framework"
-            BlueprintName = "INSPhotoGalleryFramework"
+            BlueprintIdentifier = "C9E5C37C2141313400B0694E"
+            BuildableName = "INSPhotoGallery.framework"
+            BlueprintName = "INSPhotoGallery"
             ReferencedContainer = "container:INSPhotoGallery.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
