@@ -71,8 +71,7 @@ class INSScalingImageView: UIScrollView {
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false;
         bouncesZoom = true;
-//        UIScrollView.DecelerationRate
-//        decelerationRate = UIScrollView.DecelerationRate.fast;
+        decelerationRate = UIScrollViewDecelerationRateFast
     }
     
     func centerScrollViewContents() {
