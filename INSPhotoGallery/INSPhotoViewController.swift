@@ -133,7 +133,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc private func handleLongPressWithGestureRecognizer(_ recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.began {
+        if recognizer.state == UIGestureRecognizer.State.began {
             longPressGestureHandler?(recognizer)
         }
     }

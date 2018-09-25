@@ -1,20 +1,20 @@
 PODS:
   - INSNibLoading (1.0.2)
-  - Kingfisher (4.8.1)
+  - Kingfisher (4.10.0)
 
 DEPENDENCIES:
   - INSNibLoading
   - Kingfisher
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - INSNibLoading
     - Kingfisher
 
 SPEC CHECKSUMS:
   INSNibLoading: 0244d5b9c30d4642c77b31469cbfd905e8b1efb3
-  Kingfisher: 868c1149679a7ab6869be118faa9b5aed154aaf0
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
 
 PODFILE CHECKSUM: 65ef0a362e355fd18c77f31b51039f3d5b311896
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

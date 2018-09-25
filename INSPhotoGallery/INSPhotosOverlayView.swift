@@ -57,7 +57,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     }
     
     #if swift(>=4.0)
-    open var titleTextAttributes: [NSAttributedStringKey : AnyObject] = [:] {
+    open var titleTextAttributes: [NSAttributedString.Key : AnyObject] = [:] {
         didSet {
             navigationBar.titleTextAttributes = titleTextAttributes
         }
