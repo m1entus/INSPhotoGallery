@@ -176,7 +176,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         if let overlayView = overlayView as? INSPhotosOverlayView {
             overlayView.photosViewController = self
             #if swift(>=4.0)
-                overlayView.titleTextAttributes = [NSAttributedStringKey.foregroundColor: textColor]
+            overlayView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: textColor]
             #else
                 overlayView.titleTextAttributes = [NSForegroundColorAttributeName: textColor]
             #endif
@@ -227,7 +227,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         pageViewController.view.backgroundColor = UIColor.clear
         pageViewController.delegate = self
         pageViewController.dataSource = self
-        
+
         if let photo = initialPhoto , dataSource.containsPhoto(photo) {
             changeToPhoto(photo, animated: false)
         } else if let photo = dataSource.photos.first {
@@ -280,7 +280,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      - parameter photo:    The photo to make the currently displayed photo.
      - parameter animated: Whether to animate the transition to the new photo.
      */
-    open func changeToPhoto(_ photo: INSPhotoViewable, animated: Bool, direction: UIPageViewControllerNavigationDirection = .forward) {
+    open func changeToPhoto(_ photo: INSPhotoViewable, animated: Bool, direction: UIPageViewController.NavigationDirection = .forward) {
         if !dataSource.containsPhoto(photo) {
             return
         }
