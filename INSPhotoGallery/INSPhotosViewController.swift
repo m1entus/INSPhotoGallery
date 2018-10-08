@@ -92,6 +92,15 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         return currentPhotoViewController?.photo
     }
     
+    /*
+     * maximum zoom scale for the photos. Default is 1.0
+     */
+    open var maximumZoomScale: CGFloat = 1.0 {
+        didSet {
+            self.currentPhotoViewController?.scalingImageView.maximumZoomScale = maximumZoomScale
+        }
+    }
+    
     // MARK: - Private
     public private(set) var pageViewController: UIPageViewController!
     public private(set) var dataSource: INSPhotosDataSource
@@ -388,6 +397,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
                 menuController.setMenuVisible(true, animated: true)
             }
         }
+        photoViewController.scalingImageView.maximumZoomScale = self.maximumZoomScale
         return photoViewController
     }
     
