@@ -40,7 +40,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     lazy private(set) var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let activityIndicator = UIActivityIndicatorView(style: .white)
         activityIndicator.startAnimating()
         return activityIndicator
     }()
@@ -93,7 +93,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func loadThumbnailImage() {
-        view.bringSubview(toFront: activityIndicator)
+        view.bringSubviewToFront(activityIndicator)
         photo.loadThumbnailImageWithCompletionHandler { [weak self] (image, error) -> () in
             
             let completeLoading = {
@@ -115,7 +115,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func loadFullSizeImage() {
-        view.bringSubview(toFront: activityIndicator)
+        view.bringSubviewToFront(activityIndicator)
         self.photo.loadImageWithCompletionHandler({ [weak self] (image, error) -> () in
             let completeLoading = {
                 self?.activityIndicator.stopAnimating()
@@ -133,7 +133,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc private func handleLongPressWithGestureRecognizer(_ recognizer: UILongPressGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.began {
+        if recognizer.state == .began {
             longPressGestureHandler?(recognizer)
         }
     }
