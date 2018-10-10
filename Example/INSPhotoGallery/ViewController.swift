@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         for photo in photos {
             if let photo = photo as? INSPhoto {
                 #if swift(>=4.0)
-                    photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+                    photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
                 #else
                     photo.attributedTitle = NSAttributedString(string: "Example caption text\ncaption text", attributes: [NSForegroundColorAttributeName: UIColor.white])
                 #endif

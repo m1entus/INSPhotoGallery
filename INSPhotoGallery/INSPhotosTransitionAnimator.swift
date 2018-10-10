@@ -95,7 +95,7 @@ public class INSPhotosTransitionAnimator: NSObject, UIViewControllerAnimatedTran
         
         if dismissing {
             if let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) {
-                transitionContext.containerView.bringSubview(toFront: fromView)
+                transitionContext.containerView.bringSubviewToFront(fromView)
             }
         }
     }
