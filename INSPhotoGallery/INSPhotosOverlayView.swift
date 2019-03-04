@@ -126,7 +126,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
 
         if let photosViewController = photosViewController {
             if let index = photosViewController.dataSource.indexOfPhoto(photo) {
-                navigationItem.title = String(format:NSLocalizedString("%d of %d",comment:""), index+1, photosViewController.dataSource.numberOfPhotos)
+                navigationItem.title = String(format:NSLocalizedString("%d de %d",comment:""), index+1, photosViewController.dataSource.numberOfPhotos)
             }
             captionLabel.attributedText = photo.attributedTitle
         }
