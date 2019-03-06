@@ -93,6 +93,13 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     /*
+     * Photo url string that is currently displayed by INSPhotoViewController
+     */
+    open var currentPhotoUrlString: String? {
+        return currentPhotoViewController?.photo.imageUrlString
+    }
+    
+    /*
      * maximum zoom scale for the photos. Default is 1.0
      */
     open var maximumZoomScale: CGFloat = 1.0 {
@@ -408,6 +415,9 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
             return nil
         }
         return initializePhotoViewControllerForPhoto(newPhoto)
+    }
+    @objc open func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        print("")
     }
     
     @objc open func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
