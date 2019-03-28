@@ -63,7 +63,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         }
         
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
-            if let index = self?.photos.index(where: {$0 === photo}) {
+            if let index = self?.photos.firstIndex(where: {$0 === photo}) {
                 let indexPath = IndexPath(item: index, section: 0)
                 return collectionView.cellForItem(at: indexPath) as? ExampleCollectionViewCell
             }
