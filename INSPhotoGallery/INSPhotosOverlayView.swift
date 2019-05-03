@@ -52,7 +52,8 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     }
     open var rightBarButtonItem: UIBarButtonItem? {
         didSet {
-            navigationItem.rightBarButtonItem = rightBarButtonItem
+            //navigationItem.rightBarButtonItem = rightBarButtonItem
+            navigationItem.rightBarButtonItem = nil
         }
     }
     
