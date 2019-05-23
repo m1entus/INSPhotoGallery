@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		967373432296E9FC002B1282 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967373422296E9FC002B1282 /* AppDelegate.swift */; };
+		967373452296E9FC002B1282 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967373442296E9FC002B1282 /* ViewController.swift */; };
+		967373482296E9FC002B1282 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967373462296E9FC002B1282 /* Main.storyboard */; };
+		9673734B2296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 967373492296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodeld */; };
+		9673734D2296E9FD002B1282 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9673734C2296E9FD002B1282 /* Assets.xcassets */; };
+		967373502296E9FD002B1282 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9673734E2296E9FD002B1282 /* LaunchScreen.storyboard */; };
 		C9E5C3822141313400B0694E /* INSPhotoGallery.h in Headers */ = {isa = PBXBuildFile; fileRef = C9E5C3802141313400B0694E /* INSPhotoGallery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9E5C3922141324800B0694E /* INSPhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5C3882141324800B0694E /* INSPhotosOverlayView.swift */; };
 		C9E5C3932141324800B0694E /* INSPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5C3892141324800B0694E /* INSPhotosViewController.swift */; };
@@ -21,6 +27,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		967373402296E9FC002B1282 /* INSPhotoGallerySampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INSPhotoGallerySampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		967373422296E9FC002B1282 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		967373442296E9FC002B1282 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		967373472296E9FC002B1282 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9673734A2296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = INSPhotoGallerySampleProject.xcdatamodel; sourceTree = "<group>"; };
+		9673734C2296E9FD002B1282 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9673734F2296E9FD002B1282 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		967373512296E9FD002B1282 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9E5C37D2141313400B0694E /* INSPhotoGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = INSPhotoGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E5C3802141313400B0694E /* INSPhotoGallery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INSPhotoGallery.h; sourceTree = "<group>"; };
 		C9E5C3812141313400B0694E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +51,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9673733D2296E9FC002B1282 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9E5C3792141313400B0694E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,10 +68,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		967373412296E9FC002B1282 /* INSPhotoGallerySampleProject */ = {
+			isa = PBXGroup;
+			children = (
+				967373422296E9FC002B1282 /* AppDelegate.swift */,
+				967373442296E9FC002B1282 /* ViewController.swift */,
+				967373462296E9FC002B1282 /* Main.storyboard */,
+				9673734C2296E9FD002B1282 /* Assets.xcassets */,
+				9673734E2296E9FD002B1282 /* LaunchScreen.storyboard */,
+				967373512296E9FD002B1282 /* Info.plist */,
+				967373492296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodeld */,
+			);
+			path = INSPhotoGallerySampleProject;
+			sourceTree = "<group>";
+		};
 		C9E5C3732141313400B0694E = {
 			isa = PBXGroup;
 			children = (
 				C9E5C37F2141313400B0694E /* INSPhotoGallery */,
+				967373412296E9FC002B1282 /* INSPhotoGallerySampleProject */,
 				C9E5C37E2141313400B0694E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E5C37D2141313400B0694E /* INSPhotoGallery.framework */,
+				967373402296E9FC002B1282 /* INSPhotoGallerySampleProject.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +133,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		9673733F2296E9FC002B1282 /* INSPhotoGallerySampleProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 967373542296E9FD002B1282 /* Build configuration list for PBXNativeTarget "INSPhotoGallerySampleProject" */;
+			buildPhases = (
+				9673733C2296E9FC002B1282 /* Sources */,
+				9673733D2296E9FC002B1282 /* Frameworks */,
+				9673733E2296E9FC002B1282 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = INSPhotoGallerySampleProject;
+			productName = INSPhotoGallerySampleProject;
+			productReference = 967373402296E9FC002B1282 /* INSPhotoGallerySampleProject.app */;
+			productType = "com.apple.product-type.application";
+		};
 		C9E5C37C2141313400B0694E /* INSPhotoGallery */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9E5C3852141313400B0694E /* Build configuration list for PBXNativeTarget "INSPhotoGallery" */;
@@ -120,9 +174,13 @@
 		C9E5C3742141313400B0694E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Inspace;
 				TargetAttributes = {
+					9673733F2296E9FC002B1282 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					C9E5C37C2141313400B0694E = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1020;
@@ -143,11 +201,22 @@
 			projectRoot = "";
 			targets = (
 				C9E5C37C2141313400B0694E /* INSPhotoGallery */,
+				9673733F2296E9FC002B1282 /* INSPhotoGallerySampleProject */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9673733E2296E9FC002B1282 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967373502296E9FD002B1282 /* LaunchScreen.storyboard in Resources */,
+				9673734D2296E9FD002B1282 /* Assets.xcassets in Resources */,
+				967373482296E9FC002B1282 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9E5C37B2141313400B0694E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +228,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9673733C2296E9FC002B1282 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				967373452296E9FC002B1282 /* ViewController.swift in Sources */,
+				967373432296E9FC002B1282 /* AppDelegate.swift in Sources */,
+				9673734B2296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9E5C3782141313400B0694E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -177,7 +256,67 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		967373462296E9FC002B1282 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				967373472296E9FC002B1282 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9673734E2296E9FD002B1282 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9673734F2296E9FD002B1282 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		967373522296E9FD002B1282 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7NWRJMYVCX;
+				INFOPLIST_FILE = INSPhotoGallerySampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.oncom.INSPhotoGallerySampleProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		967373532296E9FD002B1282 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7NWRJMYVCX;
+				INFOPLIST_FILE = INSPhotoGallerySampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.oncom.INSPhotoGallerySampleProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C9E5C3832141313400B0694E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -230,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -287,7 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -312,7 +451,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = INSPhotoGallery/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,7 +481,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = INSPhotoGallery/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,6 +499,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		967373542296E9FD002B1282 /* Build configuration list for PBXNativeTarget "INSPhotoGallerySampleProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				967373522296E9FD002B1282 /* Debug */,
+				967373532296E9FD002B1282 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C9E5C3772141313400B0694E /* Build configuration list for PBXProject "INSPhotoGallery" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -379,6 +527,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		967373492296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9673734A2296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodel */,
+			);
+			currentVersion = 9673734A2296E9FC002B1282 /* INSPhotoGallerySampleProject.xcdatamodel */;
+			path = INSPhotoGallerySampleProject.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C9E5C3742141313400B0694E /* Project object */;
 }

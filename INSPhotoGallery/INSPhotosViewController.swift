@@ -465,7 +465,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - UIResponder
     
     open override func copy(_ sender: Any?) {
-        UIPasteboard.general.image = currentPhoto?.image ?? currentPhotoViewController?.scalingImageView.image
+        UIPasteboard.general.image = currentPhoto?.image ?? currentPhotoViewController?.scalingImageView.image as! UIImage
     }
     
     open override var canBecomeFirstResponder: Bool {

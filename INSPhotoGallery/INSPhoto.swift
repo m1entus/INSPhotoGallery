@@ -19,6 +19,8 @@
 
 import Foundation
 import UIKit
+import PDFKit
+
 /*
  * This is marked as @objc because of Swift bug http://stackoverflow.com/questions/30100787/fatal-error-array-cannot-be-bridged-from-objective-c-why-are-you-even-trying when passing for example [INSPhoto] array
  * to INSPhotosViewController
@@ -27,8 +29,11 @@ import UIKit
     var image: UIImage? { get }
     var thumbnailImage: UIImage? { get }
     var imageUrlString: String? { get }
+    var document: PDFDocument? { get }
+    
     @objc optional var isDeletable: Bool { get }
     
+    func loadDocumentWithCompletionHandler(_ completion: @escaping (_ document: PDFDocument?, _ error: Error?) -> ())
     func loadImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ())
     func loadThumbnailImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ())
     
@@ -36,6 +41,7 @@ import UIKit
 }
 
 @objc open class INSPhoto: NSObject, INSPhotoViewable {
+    @objc public var document: PDFDocument?
     @objc open var image: UIImage?
     @objc open var thumbnailImage: UIImage?
     @objc open var imageUrlString: String?
@@ -56,8 +62,16 @@ import UIKit
     public init(image: UIImage?, thumbnailImage: UIImage?, imageUrlString: String?) {
         self.image = image
         self.thumbnailImage = thumbnailImage
-        self.isDeletable = false
         self.imageUrlString = imageUrlString
+        self.isDeletable = false
+    }
+    
+    public init(image: UIImage?, thumbnailImage: UIImage?, imageUrlString: String?, document: PDFDocument?) {
+        self.image = image
+        self.thumbnailImage = thumbnailImage
+        self.imageUrlString = imageUrlString
+        self.document = document
+        self.isDeletable = false
     }
     
     public init(imageURL: URL?, thumbnailImageURL: URL?) {
@@ -70,6 +84,13 @@ import UIKit
         self.imageURL = imageURL
         self.thumbnailImage = thumbnailImage
         self.isDeletable = false
+    }
+    
+    @objc open func loadDocumentWithCompletionHandler(_ completion: @escaping (_ document: PDFDocument?, _ error: Error?) -> ()) {
+        if let document = document {
+            completion(document, nil)
+            return
+        }
     }
     
     @objc open func loadImageWithCompletionHandler(_ completion: @escaping (_ image: UIImage?, _ error: Error?) -> ()) {

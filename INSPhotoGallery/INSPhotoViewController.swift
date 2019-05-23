@@ -81,6 +81,10 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
             self.scalingImageView.image = thumbnailImage
             self.activityIndicator.stopAnimating()
             loadFullSizeImage()
+        } else if let document = photo.document {
+            self.scalingImageView.image = document
+            self.activityIndicator.stopAnimating()
+            loadDocument()
         } else {
             loadThumbnailImage()
         }
@@ -120,6 +124,24 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
             let completeLoading = {
                 self?.activityIndicator.stopAnimating()
                 self?.scalingImageView.image = image    
+            }
+            
+            if Thread.isMainThread {
+                completeLoading()
+            } else {
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completeLoading()
+                })
+            }
+        })
+    }
+    
+    private func loadDocument() {
+        view.bringSubviewToFront(activityIndicator)
+        self.photo.loadDocumentWithCompletionHandler({ [weak self] (document, error) -> () in
+            let completeLoading = {
+                self?.activityIndicator.stopAnimating()
+                self?.scalingImageView.image = document
             }
             
             if Thread.isMainThread {

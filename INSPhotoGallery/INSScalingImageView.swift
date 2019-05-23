@@ -18,6 +18,7 @@
 //  limitations under the License.
 
 import UIKit
+import PDFKit
 private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -29,17 +30,24 @@ private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 class INSScalingImageView: UIScrollView {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: self.bounds)
-        self.addSubview(imageView)
         return imageView
     }()
     
-    var image: UIImage? {
+    lazy var pdfView: PDFView = {
+        let pdfView = PDFView(frame: self.bounds)
+        return pdfView
+    }()
+    
+    var image: Any? {
         didSet {
-            updateImage(image)
+            switch image {
+                case is UIImage: updateImage(image as? UIImage)
+                case is PDFDocument: updatePDFView(image as? PDFDocument)
+                default: ()
+            }
         }
     }
     
@@ -96,6 +104,14 @@ class INSScalingImageView: UIScrollView {
     }
     
     private func updateImage(_ image: UIImage?) {
+        if (!self.subviews.contains(imageView)) {
+            self.addSubview(imageView)
+        }
+        
+        if (self.subviews.contains(pdfView)) {
+            pdfView.removeFromSuperview()
+        }
+        
         let size = image?.size ?? CGSize.zero
         
         imageView.transform = CGAffineTransform.identity
@@ -105,6 +121,18 @@ class INSScalingImageView: UIScrollView {
         
         updateZoomScale()
         centerScrollViewContents()
+    }
+    
+    private func updatePDFView(_ document: PDFDocument?) {
+        if (!self.subviews.contains(pdfView)) {
+            self.addSubview(pdfView)
+        }
+        
+        if (self.subviews.contains(imageView)) {
+            imageView.removeFromSuperview()
+        }
+        
+        pdfView.document = document
     }
     
     private func updateZoomScale() {
