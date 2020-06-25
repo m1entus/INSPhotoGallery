@@ -74,11 +74,6 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
 
     /*
-     * Whether or not we should confirm with the user before deleting a photo
-     */
-    open var shouldConfirmDeletion: Bool = false
-
-    /*
      * INSPhotoViewController is currently displayed by page view controller
      */
     open var currentPhotoViewController: INSPhotoViewController? {
@@ -91,9 +86,14 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     open var currentPhoto: INSPhotoViewable? {
         return currentPhotoViewController?.photo
     }
+  
+    /*
+     *  Configuration of INSPhotosViewController e.g backgroundColor
+     */
+    open var configuration: INSConfiguration = INSConfiguration()
     
     /*
-     * maximum zoom scale for the photos. Default is 1.0
+     * Maximum zoom scale for the photos. Default is 1.0
      */
     open var maximumZoomScale: CGFloat = 1.0 {
         didSet {
@@ -325,7 +325,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - Target Actions
     
     open func handleDeleteButtonTapped(){
-        if shouldConfirmDeletion {
+        if configuration.shouldConfirmDeletion {
             confirmPhotoDeletion { [weak self] in
                 self?.deleteCurrentPhoto()
             }
@@ -373,7 +373,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - UIPageViewControllerDataSource / UIPageViewControllerDelegate
 
     public func initializePhotoViewControllerForPhoto(_ photo: INSPhotoViewable) -> INSPhotoViewController {
-        let photoViewController = INSPhotoViewController(photo: photo)
+        let photoViewController = INSPhotoViewController(photo: photo, configuration: configuration)
         singleTapGestureRecognizer.require(toFail: photoViewController.doubleTapGestureRecognizer)
         photoViewController.longPressGestureHandler = { [weak self] gesture in
             guard let weakSelf = self else {
@@ -398,6 +398,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
             }
         }
         photoViewController.scalingImageView.maximumZoomScale = self.maximumZoomScale
+        photoViewController.scalingImageView.backgroundColor = configuration.backgroundColor
         return photoViewController
     }
     
