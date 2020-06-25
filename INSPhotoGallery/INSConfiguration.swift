@@ -35,4 +35,20 @@ open class INSConfiguration {
     * Specify color for UIActivityIndicatorView
     */
     open var activityIndicatorColor: UIColor = .white
+    
+    /*
+    * Specify color for UIActivityIndicatorView
+    */
+    open var textColor: UIColor = .white
+    
+    /*
+    * Specify parameters for INSPhotosOverlayViewable
+    */
+    open var shadowStartColor: UIColor = UIColor.black.withAlphaComponent(0.5)
+    open var shadowEndColor: UIColor = UIColor.clear
+    open var shadowHidden: Bool = false
+    
+    open var isRightBarButtonHidden: Bool = false
+    open var isLeftBarButtonHidden: Bool = false
+
 }

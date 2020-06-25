@@ -181,7 +181,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     private func setupOverlayViewInitialItems() {
-        let textColor = view.tintColor ?? UIColor.white
+        let textColor = configuration.textColor
         if let overlayView = overlayView as? INSPhotosOverlayView {
             overlayView.photosViewController = self
             #if swift(>=4.0)
@@ -224,7 +224,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     private func setupOverlayView() {
-        
+        overlayView.configuration = configuration
         overlayView.view().autoresizingMask = [.flexibleWidth, .flexibleHeight]
         overlayView.view().frame = view.bounds
         view.addSubview(overlayView.view())

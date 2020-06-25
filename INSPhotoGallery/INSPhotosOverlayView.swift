@@ -21,7 +21,8 @@ import UIKit
 
 public protocol INSPhotosOverlayViewable:class {
     var photosViewController: INSPhotosViewController? { get set }
-    
+    var configuration: INSConfiguration! { get set}
+
     func populateWithPhoto(_ photo: INSPhotoViewable)
     func setHidden(_ hidden: Bool, animated: Bool)
     func view() -> UIView
@@ -40,6 +41,8 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     
     open private(set) var navigationItem: UINavigationItem!
     open weak var photosViewController: INSPhotosViewController?
+    open var configuration: INSConfiguration!
+
     private var currentPhoto: INSPhotoViewable?
     
     private var topShadow: CAGradientLayer!
@@ -50,6 +53,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
             navigationItem.leftBarButtonItem = leftBarButtonItem
         }
     }
+    
     open var rightBarButtonItem: UIBarButtonItem? {
         didSet {
             navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -68,6 +72,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
             navigationBar.titleTextAttributes = titleTextAttributes
         }
     }
+    
     #endif
     
     public override init(frame: CGRect) {
@@ -176,14 +181,18 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         let horizontalPositionConstraint = NSLayoutConstraint(item: navigationBar!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         self.addConstraints([topConstraint,widthConstraint,horizontalPositionConstraint])
         
+        
+        if !configuration.isRightBarButtonHidden {
+            rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
+        }
+        
+        if configuration.isLeftBarButtonHidden { return }
         if let bundlePath = Bundle(for: type(of: self)).path(forResource: "INSPhotoGallery", ofType: "bundle") {
             let bundle = Bundle(path: bundlePath)
             leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "INSPhotoGalleryClose", in: bundle, compatibleWith: nil), landscapeImagePhone: UIImage(named: "INSPhotoGalleryCloseLandscape", in: bundle, compatibleWith: nil), style: .plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
         } else {
             leftBarButtonItem = UIBarButtonItem(title: "CLOSE".uppercased(), style: .plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
         }
-        
-        rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
     }
     
  
@@ -192,6 +201,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         captionLabel = UILabel()
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
         captionLabel.backgroundColor = UIColor.clear
+        captionLabel.textColor = configuration.textColor
         captionLabel.numberOfLines = 0
         addSubview(captionLabel)
         
@@ -202,8 +212,8 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     }
     
     private func setupShadows() {
-        let startColor = UIColor.black.withAlphaComponent(0.5)
-        let endColor = UIColor.clear
+        let startColor = configuration.shadowStartColor
+        let endColor = configuration.shadowEndColor
         
         self.topShadow = CAGradientLayer()
         topShadow.colors = [startColor.cgColor, endColor.cgColor]
@@ -212,6 +222,9 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         self.bottomShadow = CAGradientLayer()
         bottomShadow.colors = [endColor.cgColor, startColor.cgColor]
         self.layer.insertSublayer(bottomShadow, at: 0)
+        
+        topShadow.isHidden = configuration.shadowHidden
+        bottomShadow.isHidden = configuration.shadowHidden
         
         self.updateShadowFrames()
     }
