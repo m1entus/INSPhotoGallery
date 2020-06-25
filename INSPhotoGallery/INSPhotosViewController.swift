@@ -61,7 +61,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     /*
      * The overlay view displayed over photos, can be changed but must implement INSPhotosOverlayViewable
      */
-    open var overlayView: INSPhotosOverlayViewable = INSPhotosOverlayView(frame: CGRect.zero) {
+    open var overlayView: INSPhotosOverlayViewable {
         willSet {
             overlayView.view().removeFromSuperview()
         }
@@ -72,10 +72,10 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
             view.addSubview(overlayView.view())
         }
     }
-
+    
     /*
-     * Whether or not we should confirm with the user before deleting a photo
-     */
+    * Whether or not we should confirm with the user before deleting a photo
+    */
     open var shouldConfirmDeletion: Bool = false
 
     /*
@@ -91,9 +91,9 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     open var currentPhoto: INSPhotoViewable? {
         return currentPhotoViewController?.photo
     }
-    
+
     /*
-     * maximum zoom scale for the photos. Default is 1.0
+     * Maximum zoom scale for the photos. Default is 1.0
      */
     open var maximumZoomScale: CGFloat = 1.0 {
         didSet {
@@ -105,6 +105,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     public private(set) var pageViewController: UIPageViewController!
     public private(set) var dataSource: INSPhotosDataSource
     
+    let configuration: INSConfiguration
     public let interactiveAnimator: INSPhotosInteractionAnimator = INSPhotosInteractionAnimator()
     public let transitionAnimator: INSPhotosTransitionAnimator = INSPhotosTransitionAnimator()
     
@@ -142,12 +143,16 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     
     required public init?(coder aDecoder: NSCoder) {
         dataSource = INSPhotosDataSource(photos: [])
+        configuration = INSConfiguration()
+        overlayView = INSPhotosOverlayView(frame: CGRect.zero, configuration:  configuration)
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(nil)
     }
     
     public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         dataSource = INSPhotosDataSource(photos: [])
+        configuration = INSConfiguration()
+        overlayView = INSPhotosOverlayView(frame: CGRect.zero, configuration:  configuration)
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(nil)
     }
@@ -161,8 +166,10 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      
      - returns: A fully initialized object.
      */
-    public init(photos: [INSPhotoViewable], initialPhoto: INSPhotoViewable? = nil, referenceView: UIView? = nil) {
-        dataSource = INSPhotosDataSource(photos: photos)
+    public init(photos: [INSPhotoViewable], initialPhoto: INSPhotoViewable? = nil, referenceView: UIView? = nil, configuration: INSConfiguration = INSConfiguration()) {
+        self.dataSource = INSPhotosDataSource(photos: photos)
+        self.configuration = configuration
+        self.overlayView = INSPhotosOverlayView(frame: CGRect.zero, configuration: configuration)
         super.init(nibName: nil, bundle: nil)
         initialSetupWithInitialPhoto(initialPhoto)
         transitionAnimator.startingView = referenceView
@@ -181,7 +188,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     private func setupOverlayViewInitialItems() {
-        let textColor = view.tintColor ?? UIColor.white
+        let textColor = configuration.navigationTitleTextColor
         if let overlayView = overlayView as? INSPhotosOverlayView {
             overlayView.photosViewController = self
             #if swift(>=4.0)
@@ -224,7 +231,6 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     }
     
     private func setupOverlayView() {
-        
         overlayView.view().autoresizingMask = [.flexibleWidth, .flexibleHeight]
         overlayView.view().frame = view.bounds
         view.addSubview(overlayView.view())
@@ -373,7 +379,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - UIPageViewControllerDataSource / UIPageViewControllerDelegate
 
     public func initializePhotoViewControllerForPhoto(_ photo: INSPhotoViewable) -> INSPhotoViewController {
-        let photoViewController = INSPhotoViewController(photo: photo)
+        let photoViewController = INSPhotoViewController(photo: photo, configuration: configuration)
         singleTapGestureRecognizer.require(toFail: photoViewController.doubleTapGestureRecognizer)
         photoViewController.longPressGestureHandler = { [weak self] gesture in
             guard let weakSelf = self else {
@@ -398,6 +404,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
             }
         }
         photoViewController.scalingImageView.maximumZoomScale = self.maximumZoomScale
+        photoViewController.scalingImageView.backgroundColor = configuration.backgroundColor
         return photoViewController
     }
     

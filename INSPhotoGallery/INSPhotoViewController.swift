@@ -21,6 +21,7 @@ import UIKit
 
 open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
     var photo: INSPhotoViewable
+    let configuration: INSConfiguration
     
     var longPressGestureHandler: ((UILongPressGestureRecognizer) -> ())?
     
@@ -45,8 +46,9 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         return activityIndicator
     }()
     
-    public init(photo: INSPhotoViewable) {
+    public init(photo: INSPhotoViewable, configuration: INSConfiguration) {
         self.photo = photo
+        self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,6 +68,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         scalingImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(scalingImageView)
         
+        activityIndicator.color = configuration.activityIndicatorColor
         view.addSubview(activityIndicator)
         activityIndicator.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         activityIndicator.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin]

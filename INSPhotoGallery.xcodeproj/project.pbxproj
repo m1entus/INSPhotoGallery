@@ -18,6 +18,7 @@
 		C9E5C3992141324800B0694E /* INSPhotoGallery.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9E5C38F2141324800B0694E /* INSPhotoGallery.bundle */; };
 		C9E5C39A2141324800B0694E /* INSPhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5C3902141324800B0694E /* INSPhotosInteractionAnimator.swift */; };
 		C9E5C39B2141324800B0694E /* INSPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5C3912141324800B0694E /* INSPhotoViewController.swift */; };
+		D93AB2C024A543F300BB885A /* INSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93AB2BF24A543F300BB885A /* INSConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C9E5C38F2141324800B0694E /* INSPhotoGallery.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = INSPhotoGallery.bundle; sourceTree = "<group>"; };
 		C9E5C3902141324800B0694E /* INSPhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotosInteractionAnimator.swift; sourceTree = "<group>"; };
 		C9E5C3912141324800B0694E /* INSPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotoViewController.swift; sourceTree = "<group>"; };
+		D93AB2BF24A543F300BB885A /* INSConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INSConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				C9E5C3902141324800B0694E /* INSPhotosInteractionAnimator.swift */,
 				C9E5C3882141324800B0694E /* INSPhotosOverlayView.swift */,
 				C9E5C38E2141324800B0694E /* INSPhotosTransitionAnimator.swift */,
+				D93AB2BF24A543F300BB885A /* INSConfiguration.swift */,
 				C9E5C3892141324800B0694E /* INSPhotosViewController.swift */,
 				C9E5C3912141324800B0694E /* INSPhotoViewController.swift */,
 				C9E5C38C2141324800B0694E /* INSScalingImageView.swift */,
@@ -166,6 +169,7 @@
 				C9E5C3952141324800B0694E /* UIVIew+INSPhotoViewer.swift in Sources */,
 				C9E5C3982141324800B0694E /* INSPhotosTransitionAnimator.swift in Sources */,
 				C9E5C3972141324800B0694E /* INSPhoto.swift in Sources */,
+				D93AB2C024A543F300BB885A /* INSConfiguration.swift in Sources */,
 				C9E5C39B2141324800B0694E /* INSPhotoViewController.swift in Sources */,
 				C9E5C39A2141324800B0694E /* INSPhotosInteractionAnimator.swift in Sources */,
 				C9E5C3932141324800B0694E /* INSPhotosViewController.swift in Sources */,
