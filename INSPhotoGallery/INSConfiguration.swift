@@ -20,12 +20,7 @@
 
 import UIKit
 
-open class INSConfiguration {
-    /*
-    * Whether or not we should confirm with the user before deleting a photo
-    */
-    open var shouldConfirmDeletion: Bool = false
-
+public class INSConfiguration: NSObject {
     /*
     * Specify backgroundColor for INSScalingImageView
     */
@@ -39,7 +34,7 @@ open class INSConfiguration {
     /*
     * Specify color for UIActivityIndicatorView
     */
-    open var textColor: UIColor = .white
+    open var navigationTitleTextColor: UIColor = .white
     
     /*
     * Specify parameters for INSPhotosOverlayViewable
@@ -48,7 +43,7 @@ open class INSConfiguration {
     open var shadowEndColor: UIColor = UIColor.clear
     open var shadowHidden: Bool = false
     
-    open var isRightBarButtonHidden: Bool = false
-    open var isLeftBarButtonHidden: Bool = false
+    open var rightBarButtonHidden: Bool = false
+    open var leftBarButtonHidden: Bool = false
 
 }

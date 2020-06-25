@@ -57,7 +57,16 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ExampleCollectionViewCell
         let currentPhoto = photos[(indexPath as NSIndexPath).row]
-        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
+        
+        let configuration = INSConfiguration()
+        configuration.backgroundColor = .white
+        configuration.activityIndicatorColor = .blue
+        configuration.shadowHidden = true
+        configuration.rightBarButtonHidden = true
+        configuration.leftBarButtonHidden = true
+        configuration.navigationTitleTextColor = .green
+        
+        let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, configuration: configuration)
         if useCustomOverlay {
             galleryPreview.overlayView = CustomOverlayView(frame: CGRect.zero)
         }

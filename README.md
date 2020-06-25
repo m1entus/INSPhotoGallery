@@ -40,6 +40,35 @@ func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath i
 }
 ```
 
+# UI Configuration
+
+
+```swift
+func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ExampleCollectionViewCell
+    let currentPhoto = photos[indexPath.row]
+    
+    let configuration = INSConfiguration()
+    configuration.backgroundColor = .white
+    configuration.activityIndicatorColor = .blue
+    configuration.shadowHidden = true
+    configuration.rightBarButtonHidden = true
+    configuration.leftBarButtonHidden = true
+    configuration.navigationTitleTextColor = .green
+    
+    let galleryPreview = INSPhotosViewController<INSPhoto>(photos: photos, initialPhoto: currentPhoto, referenceView: cell, configuration: configuration)
+
+    galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+        if let index = self?.photos.indexOf({$0 === photo}) {
+            let indexPath = NSIndexPath(forItem: index, inSection: 0)
+            return collectionView.cellForItemAtIndexPath(indexPath) as? ExampleCollectionViewCell
+        }
+        return nil
+    }
+    presentViewController(galleryPreview, animated: true, completion: nil)
+}
+```
+
 # Custom Photo Model
 
 You are able to create your custom photo model which can be use instead default `INSPhoto`. Default implementation don't cache images. If you would like to use some caching mechanism or use some library for downloading images for example `HanekeSwift` use must implement `INSPhotoViewable` protocol.

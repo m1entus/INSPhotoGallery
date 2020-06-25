@@ -21,7 +21,6 @@ import UIKit
 
 public protocol INSPhotosOverlayViewable:class {
     var photosViewController: INSPhotosViewController? { get set }
-    var configuration: INSConfiguration! { get set}
 
     func populateWithPhoto(_ photo: INSPhotoViewable)
     func setHidden(_ hidden: Bool, animated: Bool)
@@ -41,7 +40,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     
     open private(set) var navigationItem: UINavigationItem!
     open weak var photosViewController: INSPhotosViewController?
-    open var configuration: INSConfiguration!
+    var configuration: INSConfiguration!
 
     private var currentPhoto: INSPhotoViewable?
     
@@ -75,7 +74,8 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
     
     #endif
     
-    public override init(frame: CGRect) {
+    init(frame: CGRect, configuration: INSConfiguration) {
+        self.configuration = configuration
         super.init(frame: frame)
         setupShadows()
         setupNavigationBar()
@@ -182,11 +182,11 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         self.addConstraints([topConstraint,widthConstraint,horizontalPositionConstraint])
         
         
-        if !configuration.isRightBarButtonHidden {
+        if !configuration.rightBarButtonHidden {
             rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(INSPhotosOverlayView.actionButtonTapped(_:)))
         }
         
-        if configuration.isLeftBarButtonHidden { return }
+        if configuration.leftBarButtonHidden { return }
         if let bundlePath = Bundle(for: type(of: self)).path(forResource: "INSPhotoGallery", ofType: "bundle") {
             let bundle = Bundle(path: bundlePath)
             leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "INSPhotoGalleryClose", in: bundle, compatibleWith: nil), landscapeImagePhone: UIImage(named: "INSPhotoGalleryCloseLandscape", in: bundle, compatibleWith: nil), style: .plain, target: self, action: #selector(INSPhotosOverlayView.closeButtonTapped(_:)))
@@ -201,7 +201,7 @@ open class INSPhotosOverlayView: UIView , INSPhotosOverlayViewable {
         captionLabel = UILabel()
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
         captionLabel.backgroundColor = UIColor.clear
-        captionLabel.textColor = configuration.textColor
+        captionLabel.textColor = configuration.navigationTitleTextColor
         captionLabel.numberOfLines = 0
         addSubview(captionLabel)
         

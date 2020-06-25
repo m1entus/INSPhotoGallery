@@ -31,6 +31,7 @@
 		D2EF36201CB299CF00033131 /* CustomOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2EF361F1CB299CF00033131 /* CustomOverlayView.xib */; };
 		D2EF36221CB29C6600033131 /* CustomPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF36211CB29C6600033131 /* CustomPhotoModel.swift */; };
 		D2EF36241CB2A67800033131 /* CustomModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EF36231CB2A67800033131 /* CustomModelViewController.swift */; };
+		D93AB2C224A558F200BB885A /* INSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93AB2C124A558F100BB885A /* INSConfiguration.swift */; };
 		FB44620B1AE393EEB9BC3649 /* Pods_INSPhotoGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043F1D6415A9A5BC7A90DF71 /* Pods_INSPhotoGallery.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		D2EF361F1CB299CF00033131 /* CustomOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlayView.xib; sourceTree = "<group>"; };
 		D2EF36211CB29C6600033131 /* CustomPhotoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPhotoModel.swift; sourceTree = "<group>"; };
 		D2EF36231CB2A67800033131 /* CustomModelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModelViewController.swift; sourceTree = "<group>"; };
+		D93AB2C124A558F100BB885A /* INSConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = INSConfiguration.swift; path = ../INSPhotoGallery/INSConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		D2EF35E81CB288F300033131 = {
 			isa = PBXGroup;
 			children = (
+				D93AB2C124A558F100BB885A /* INSConfiguration.swift */,
 				D2EF35F31CB288F300033131 /* INSPhotoGallery */,
 				642427271CDE10750037E8DA /* INSPhotoGalleryFramework */,
 				D2EF35F21CB288F300033131 /* Products */,
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D93AB2C224A558F200BB885A /* INSConfiguration.swift in Sources */,
 				642427431CDE10970037E8DA /* INSPhotosViewController.swift in Sources */,
 				642427401CDE10970037E8DA /* INSPhotosInteractionAnimator.swift in Sources */,
 				642427421CDE10970037E8DA /* INSPhotosTransitionAnimator.swift in Sources */,
