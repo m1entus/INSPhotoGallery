@@ -26,7 +26,12 @@ public class INSConfiguration: NSObject {
     */
     open var backgroundColor: UIColor = .black
 
+	  /*
+	  * Specify backgroundColor for INSScalingImageView .imageView
+	  */
+	  open var imageViewBackgroundColor: UIColor = .clear
     /*
+	
     * Specify color for UIActivityIndicatorView
     */
     open var activityIndicatorColor: UIColor = .white

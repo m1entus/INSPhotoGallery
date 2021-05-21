@@ -66,6 +66,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate {
         scalingImageView.delegate = self
         scalingImageView.frame = view.bounds
         scalingImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			  scalingImageView.imageView.backgroundColor = configuration.imageViewBackgroundColor
         view.addSubview(scalingImageView)
         
         activityIndicator.color = configuration.activityIndicatorColor
